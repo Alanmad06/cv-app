@@ -2,6 +2,9 @@ import Box from "@/components/Box";
 import Button from "@/components/Button";
 import Experience from "@/components/Experience";
 import Feedback from "@/components/Feedback";
+import Info from "@/components/Info";
+import Navigation from "@/components/Navigation";
+import Panel from "@/components/Panel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -18,6 +21,10 @@ export default function Home() {
       <Button icon={<FontAwesomeIcon icon="chevron-left" size="xs" />} text="Atrás" color="main" />
       <Experience experience={[ { date: '2013-2014', info: { company: 'Google', job: 'Front-end developer / php programmer', description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor' } }, { date: '2012', info: { company: 'Twitter', job: 'Web developer', description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor' } } ]} />
       <Feedback feedback={[ {feedback: ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor', reporter: { photoUrl: './user.jpg', name: 'John Doe', citeUrl: 'https://www.citeexample.com' } }, {feedback: ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor', reporter: { photoUrl: './user.jpg', name: 'John Doe', citeUrl: 'https://www.citeexample.com' } } ]} />
+      <Info info="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor." />
+      <Navigation/>
+      <Panel/>
+      
       </div>
       );
 }
