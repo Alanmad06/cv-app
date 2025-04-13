@@ -1,11 +1,8 @@
-export default function Button({icon,text,color}: {icon:React.ReactNode , text : string , color : string}){
-
-  
+export default function Button({icon, text, className = ""}: {icon: React.ReactNode, text: string, className?: string}) {
     return(
-        <button className={`bg-${color} rounded-md mx-w-40  min-w-18 h-10 md:min-w-25 flex flex-row items-center justify-center m-2 `}>
+        <button className={`self-center rounded-md max-w-40 min-w-18 h-10 md:min-w-25 inline-flex justify-center items-center m-2 px-2 ${className}`}>
             <i>{icon}</i>
-            
-            <p className="px-2 md:px-4 font-sans ">{text}</p>
+            <p className="pl-1 font-sans">{text}</p>
         </button>
     )
 }
