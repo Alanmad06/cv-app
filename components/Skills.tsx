@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchSkills } from '@/store/skillsSlice';
 import { Skill } from '@/interfaces/skills';
+import { logout } from '@/store/authSlice';
 
 // Componente Skeleton para mostrar durante la carga
 const SkillSkeleton = () => {
@@ -42,6 +43,7 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
 export default function Skills() {
   const dispatch = useDispatch<AppDispatch>();
   const { skills, loading } = useSelector((state: RootState) => state.skills);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(fetchSkills());
@@ -51,12 +53,31 @@ export default function Skills() {
     <div className="my-6 p-2">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main">Skills</h2>
-        <button 
-          className="bg-[#222935] text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
-          onClick={() => document.dispatchEvent(new CustomEvent('openSkillsForm'))}
-        >
-          Open edit
-        </button>
+        <div className="flex gap-2">
+          {isAuthenticated ? (
+            <>
+              <button 
+                className="bg-[#222935] text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
+                onClick={() => document.dispatchEvent(new CustomEvent('openSkillsForm'))}
+              >
+                Open edit
+              </button>
+              <button 
+                className="bg-red-600 text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
+                onClick={() => dispatch(logout())}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <button 
+              className="bg-[#26C17E] text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
+              onClick={() => document.dispatchEvent(new CustomEvent('openLoginForm'))}
+            >
+              Login
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (

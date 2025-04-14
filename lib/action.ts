@@ -6,10 +6,10 @@ import prisma from "./prisma";
 
 
 const skillSchema = z.object({
-  skill: z.string(),
+  name: z.string(),
   level: z.number().gt(0, {
     message: "El nivel debe ser mayor a 0",
-  }),
+  }).positive(),
 });
 
 const loginSchema = z.object({
@@ -29,11 +29,14 @@ export const fetchSkills = async () => {
 
 export const addSkill = async (skill: Omit<Skill, "id">) => {
   const result = skillSchema.safeParse(skill);
+  console.log(result)
   if (!result.success) {
+    console.log(result.error);
     return { error: result.error };
   }
-  const { skill: skillName, level } = result.data;
+  const { name: skillName, level } = result.data;
 
+  console.log(skillName, level);
   try {
     const newSkill = await prisma.skill.create({
       data: {
@@ -53,7 +56,7 @@ export const updateSkill = async (skill: Skill) => {
     return { error: result.error };
 } 
 
-  const { skill: skillName, level } = result.data;
+  const { name: skillName, level } = result.data;
   try {
     const updatedSkill = await prisma.skill.update({
       where: {
@@ -92,13 +95,16 @@ export const login = async ({
   user: string;
   password: string;
 }) => {
+    console.log(user, password);
   const result = loginSchema.safeParse({ user, password });
   if (!result.success) {
     return { access: false };
   }
 
   const { user: userV, password: passwordV } = result.data;
-
+  console.log(userV,passwordV)
+  console.log(process.env.USER, process.env.PASSWORD);
+  
   if (userV === process.env.USER && passwordV === process.env.PASSWORD) {
     return { access: true };
   }

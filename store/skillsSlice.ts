@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Skill } from '@/interfaces/skills';
-import { fetchSkills as fetchSkillsAction  } from '@/lib/action';
+import { fetchSkills as fetchSkillsAction, addSkill as addSkillAction, updateSkill as updateSkillAction, deleteSkill as deleteSkillAction } from '@/lib/action';
 
 // Estado inicial
 interface SkillsState {
@@ -36,19 +36,20 @@ export const fetchSkills = createAsyncThunk(
 export const addSkill = createAsyncThunk(
   'skills/addSkill',
   async (skill: Omit<Skill, 'id'>, { rejectWithValue }) => {
+    console.log('Adding skill:', skill);
     try {
-      // Simulando una llamada a API
-      await new Promise(resolve => setTimeout(resolve, 6000));
+      const response = await addSkillAction({
+        name: skill.name,
+        level: skill.level
+      });
       
-      // Generar un ID único
-      const newSkill: Skill = {
-        ...skill,
-        id: Date.now().toString(),
-      };
+      if (response.error) {
+        return rejectWithValue('Error al añadir la habilidad');
+      }
       
-      return newSkill;
+      return response.newSkill as Skill;
     } catch (error) {
-      console.error('Error al añadir la habilidad:', error); // Agrega esta línea para ver el detalle del error en la consola
+      console.error('Error al añadir la habilidad:', error);
       return rejectWithValue('Error al añadir la habilidad');
     }
   }
@@ -58,12 +59,19 @@ export const updateSkill = createAsyncThunk(
   'skills/updateSkill',
   async (skill: Skill, { rejectWithValue }) => {
     try {
-      // Simulando una llamada a API
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const response = await updateSkillAction({
+        id: skill.id,
+        name: skill.name,
+        level: skill.level
+      });
       
-      return skill;
+      if (response.error) {
+        return rejectWithValue('Error al actualizar la habilidad');
+      }
+      
+      return response.updatedSkill as Skill;
     } catch (error) {
-      console.error('Error al editar una skill:',error)
+      console.error('Error al editar una skill:', error);
       return rejectWithValue('Error al actualizar la habilidad');
     }
   }
@@ -73,12 +81,15 @@ export const deleteSkill = createAsyncThunk(
   'skills/deleteSkill',
   async (id: string, { rejectWithValue }) => {
     try {
-      // Simulando una llamada a API
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const response = await deleteSkillAction(id);
+      
+      if (response.error) {
+        return rejectWithValue('Error al eliminar la habilidad');
+      }
       
       return id;
     } catch (error) {
-      console.error('Error al eliminar una habilidad:',error)
+      console.error('Error al eliminar una habilidad:', error);
       return rejectWithValue('Error al eliminar la habilidad');
     }
   }
@@ -105,7 +116,7 @@ const skillsSlice = createSlice({
         state.error = action.payload as string;
       });
     
-    // Add skill
+    
     builder
       .addCase(addSkill.pending, (state) => {
         state.loading = true;

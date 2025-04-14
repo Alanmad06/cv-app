@@ -6,6 +6,8 @@ import "./globals.css";
 import "@/lib/fontawesome";
 import Panel from "@/components/Panel";
 
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,8 +38,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased`}
       >
-        <Panel/>
-        {children}
+      
+          <Panel/>
+     
+          {children}
        
       </body>
     </html>
