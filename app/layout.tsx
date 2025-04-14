@@ -3,6 +3,9 @@ import { Geist, Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
 // Importar la configuración de Font Awesome
 import "@/lib/fontawesome";
+import Panel from "@/components/Panel";
+import { Provider } from "react-redux";
+import {store} from "@/store/store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +37,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased`}
       >
+        <Provider store={store}>
+        <Panel/>
         {children}
+        </Provider>
       </body>
     </html>
   );
