@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Feedback({ feedback }: { feedback: Feedback[] }) {
 
     return (
-        <div className="flex flex-col gap-2 m-2 ">
+        <div className="flex flex-col gap-2 m-2 text-black">
             <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main">Feedback</h2>
 
             {

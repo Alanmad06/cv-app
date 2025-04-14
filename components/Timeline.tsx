@@ -4,7 +4,7 @@ export default function Timeline({ timeline }: { timeline: Timeline[] }) {
     return (
         <div className="max-h-[80dvh] scroll-auto overflow-y-scroll scrollbar-thin scrollbar-thumb-main scrollbar-track-gray-200">
             {timeline.map((project: Timeline, index) => (
-                <div key={index} className="flex flex-row gap-2 m-2 ">
+                <div key={index} className="flex flex-row gap-2 m-2 text-black ">
                     <div className="flex-1/10 relative
                      before:content-[''] before:absolute before:bg-main 
                      before:w-1 before:h-[70%] before:top-[60%] before:left-[50%]

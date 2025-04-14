@@ -29,7 +29,7 @@ export default function Portfolio() {
 
     // Componente de proyecto para evitar duplicación de código
     const ProjectItem = ({ project , index  }:{project : Portfolio, index: number}) => (
-        <div key={index} className="relative min-h-40 mx-2 overflow-hidden group transition-all duration-300 ease-in-out">
+        <div key={index} className=" text-black relative min-h-40 mx-2 overflow-hidden group transition-all duration-300 ease-in-out">
             <div className="absolute inset-0 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
                 <Image 
                     src={project.img}
@@ -49,7 +49,7 @@ export default function Portfolio() {
     return (
         <div className="pb-10">
             {/* Botones de filtrado con estado activo */}
-            <div className="flex flex-wrap mb-4">
+            <div className="flex flex-wrap mb-4 text-black">
                 {categories.map((category) => (
                     <button 
                         className={`p-2 m-2 transition-colors duration-300 ${selectedCategory === category ? 'bg-main text-white' : 'bg-gray-200 hover:bg-main/70'}`} 
@@ -63,7 +63,7 @@ export default function Portfolio() {
             </div>
             
             {/* Grid de proyectos con animación */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 {filteredProjects.map((project, index) => (
                     <ProjectItem project={project} index={index} key={index} />
                 ))}

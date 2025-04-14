@@ -41,10 +41,10 @@ export default function Navigation() {
     ];
 
   return (
-    <nav className="  ">
+    <nav className="px-2">
      {
         items.map((item, index) => (
-          <a key={index} href={item.url} className="hover:text-main   active:text-main flex flex-row justify-center items-center gap-2 py-4  min-[700px]:justify-start  min-[700px]:pl-1 max-[700px]:min-w-[20vw] hover:bg-gray-500 w-[100%] ">
+          <a key={index} href={item.url} className="hover:text-main active:text-main flex flex-row justify-center items-center gap-2 py-4   min-[700px]:justify-start  min-[700px]:pl-1 max-[700px]:min-w-[20vw] hover:bg-gray-500 w-[100%] ">
             <i className="">{item.icon}</i>
             <span className="px-4 max-[700px]:hidden font-sm" >{item.title}</span>
           </a>
