@@ -1,22 +1,24 @@
+import { faGithub, faGitlab } from "@fortawesome/free-brands-svg-icons"
+import { faEnvelope, faMobilePhone } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon  } from "@fortawesome/react-fontawesome"
 
 export default function Address() {
 
     const contacts = [
         {
-            icon: <FontAwesomeIcon icon="envelope" size="lg" />,
+            icon: <FontAwesomeIcon icon={faEnvelope} size="lg" />,
             info: "madrigal.saenz.alan@gmail.com"
         },
         {
-            icon: <FontAwesomeIcon icon="github" size="lg" />,
+            icon: <FontAwesomeIcon icon={faGithub} size="lg" />,
             info: "https://github.com/Alanmad06"
         },
         {
-            icon: <FontAwesomeIcon icon="gitlab" size="lg" />,
+            icon: <FontAwesomeIcon icon={faGitlab} size="lg" />,
             info: "https://github.com/Alanmad06"
         },
         {
-            icon: <FontAwesomeIcon icon="mobile-phone" size="lg" />,
+            icon: <FontAwesomeIcon icon={faMobilePhone} size="lg" />,
             tile: "Phone",
             info: "(+52) 3321546599"
         }
