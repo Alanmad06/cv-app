@@ -110,3 +110,15 @@ export const login = async ({
   }
   return { access: false };
 };
+
+export const fetchProject= async (title : string) => {
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/Alanmad06/${title}`)
+    const data = await response.json()
+    return { data }
+  }catch(error){
+    return {error}
+  }
+
+}

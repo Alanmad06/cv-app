@@ -26,7 +26,7 @@ export default function Panel() {
             </label>
 
             {/* Panel that slides in and out */}
-            <div className={`fixed min-w-[70px] top-0 left-0 h-full max-w-[25vw] bg-[#222935] shadow-lg transition-transform duration-300 ease-in-out z-40 ${
+            <div className={`fixed min-w-[70px] top-0 left-0 h-full max-w-[25vw]  bg-[#222935] shadow-lg transition-transform duration-300 ease-in-out z-40 ${
                 isPanelVisible ? 'translate-x-0' : '-translate-x-full'
             }`}>
                 <div className="flex flex-col justify-between h-full p-[1%] pt-16 ">
@@ -43,6 +43,7 @@ export default function Panel() {
                         icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
                         text="Go Back"
                         className="bg-[#10141b]"
+                        link="/"
                     />
                 </div>
             </div>

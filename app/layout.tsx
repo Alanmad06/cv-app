@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased px-2 pt-10  `}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased px-2   `}
       >
       
           <Panel/>
