@@ -72,7 +72,7 @@ export default function Portfolio() {
         <div key={index} onClick={()=>{
             handleClick(project.title);
         }} className="text-black relative min-h-40 mx-2 overflow-hidden group transition-all duration-300 ease-in-out cursor-pointer ">
-            <div className="absolute inset-0 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-400 ease-in hover:z-0">
+            <div className="absolute inset-0 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300  hover:z-0">
                 <Image 
                     src={project.img}
                     alt={project.title}
@@ -80,7 +80,7 @@ export default function Portfolio() {
                     className="object-cover"
                 />
             </div>
-            <div className="relative flex flex-col justify-between items-start p-5 h-full font-sans transition-all ease-in-out ">
+            <div className="relative flex flex-col  justify-between items-start p-5 h-full font-sans ">
                 <h2 className="text-main font-bold">{project.title}</h2>
                 <p className="text-start py-2">{project.description}</p>
                 <Link className="text-sm underline text-main" href={project.link} >

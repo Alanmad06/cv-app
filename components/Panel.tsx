@@ -41,9 +41,9 @@ export default function Panel() {
                     </div>
                     <Button
                         icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
-                        text="Go Back"
+                        text="Go Home"
                         className="bg-[#10141b]"
-                        link="/"
+                        link="/portfolio"
                     />
                 </div>
             </div>

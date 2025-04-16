@@ -1,0 +1,118 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+interface ProjectDetailProps {
+  projectData: any;
+}
+
+export default function ProjectDetail({ projectData }: ProjectDetailProps) {
+  const [readmeContent, setReadmeContent] = useState<string>('');
+  const [readmeImages, setReadmeImages] = useState<string[]>([]);
+  
+  useEffect(() => {
+    if (projectData?.data) {
+      // Fetch README content
+      fetchReadmeContent(projectData.data.owner.login, projectData.data.name);
+    }
+  }, [projectData]);
+  
+  const fetchReadmeContent = async (owner: string, repo: string) => {
+    try {
+      const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`);
+      
+      if (response.ok) {
+        const readmeData = await response.json();
+        
+        // Decode content from base64
+        const content = atob(readmeData.content);
+        const contentClear = content.match(/\|\s*(.*?)\s*\|/);
+       
+        setReadmeContent(contentClear ? contentClear[1] : '');
+        
+        // Extract image URLs using regex
+        const imageMatches = content.match(/!\[.*?\]\((https:\/\/.*?)\)/g) || [];
+        const imageUrls = imageMatches.map(match => {
+          const urlMatch = match.match(/!\[.*?\]\((https:\/\/.*?)\)/);
+          return urlMatch ? urlMatch[1] : '';
+        }).filter(url => url !== '');
+        
+        setReadmeImages(imageUrls);
+      }
+    } catch (error) {
+      console.error('Error fetching README:', error);
+    }
+  };
+  
+  if (!projectData?.data) {
+    return <div>No project data available</div>;
+  }
+  
+  const { data } = projectData;
+  
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg text-black">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2 text-black">{data.name}</h1>
+        <p className="text-gray-600 mb-4">{data.description || 'No description available'}</p>
+        
+        <div className="flex flex-wrap gap-2 mb-4">
+          {data.topics && data.topics.map((topic: string) => (
+            <span key={topic} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+              {topic}
+            </span>
+          ))}
+        </div>
+        
+        <div className="flex gap-4 mb-6">
+          <div className="flex items-center">
+            <span className="font-medium mr-2">⭐</span>
+            <span>{data.stargazers_count}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="font-medium mr-2">🍴</span>
+            <span>{data.forks_count}</span>
+          </div>
+          <Link 
+            href={data.html_url} 
+            target="_blank" 
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            View on GitHub
+          </Link>
+        </div>
+      </div>
+      
+      {readmeImages.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold mb-4 text-black">Project Images</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {readmeImages.map((imageUrl, index) => (
+              <div key={index} className="relative h-64 rounded-lg overflow-hidden">
+                <Image
+                  src={imageUrl} 
+                  alt={`Project image ${index + 1}`} 
+                  className="object-cover w-full h-full"
+                  fill
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {readmeContent && (
+        <div className="mb-6 text-black">
+          <h2 className="text-2xl font-bold mb-4">README</h2>
+          <div className="prose max-w-none">
+            <pre className="whitespace-pre-wrap bg-gray-50 p-4 rounded-lg">
+              {readmeContent}
+            </pre>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

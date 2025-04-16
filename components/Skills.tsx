@@ -53,7 +53,7 @@ export default function Skills() {
     <div className="my-6 p-2">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main">Skills</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-h-[80dvh] scroll-auto overflow-y-scroll">
           {isAuthenticated ? (
             <>
               <button 
