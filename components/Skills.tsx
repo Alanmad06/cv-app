@@ -26,7 +26,7 @@ const SkillSkeleton = () => {
 const SkillBar = ({ skill }: { skill: Skill }) => {
   return (
     <div className="mb-4">
-      <div className="bg-[#26C17E] text-white py-1 px-2 rounded-sm inline-block mb-1">
+      <div className="bg-[#26C17E] text-white py-1 px-2 rounded-sm inline-block mb-1 ">
         {skill.name}
       </div>
       <div className="w-full bg-gray-200 rounded-sm h-6 relative">
@@ -53,7 +53,7 @@ export default function Skills() {
     <div className="my-6 p-2">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main">Skills</h2>
-        <div className="flex gap-2 max-h-[80dvh] scroll-auto overflow-y-scroll">
+        <div className="flex gap-2 ">
           {isAuthenticated ? (
             <>
               <button 
@@ -83,7 +83,7 @@ export default function Skills() {
       {loading ? (
         <SkillSkeleton />
       ) : (
-        <div>
+        <div className='max-h-[80dvh] scroll-auto overflow-y-scroll pr-2'>
           {skills.length> 0 && skills.map((skill) => (
             <SkillBar key={skill.id} skill={skill} />
           ))}

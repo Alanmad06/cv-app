@@ -71,7 +71,7 @@ export default function Portfolio() {
     const ProjectItem = ({ project, index }: { project: Portfolio, index: number }) => (
         <div key={index} onClick={()=>{
             handleClick(project.title);
-        }} className="text-black relative min-h-40 mx-2 overflow-hidden group transition-all duration-300 ease-in-out cursor-pointer ">
+        }} className="text-foreground relative min-h-40 mx-2 overflow-hidden group transition-all duration-300 ease-in-out cursor-pointer ">
             <div className="absolute inset-0 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300  hover:z-0">
                 <Image 
                     src={project.img}
@@ -95,7 +95,7 @@ export default function Portfolio() {
         <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main ">Projects</h2>
 
             {/* Loading and error states */}
-            {loading && <div className="text-center py-4 text-black">Loading projects...</div>}
+            {loading && <div className="text-center py-4 text-foreground">Loading projects...</div>}
             {error && <div className="text-center py-4 text-red-500">{error}</div>}
             
             {/* Botones de filtrado con estado activo */}

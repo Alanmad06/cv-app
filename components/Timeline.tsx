@@ -4,10 +4,10 @@ export default function Timeline({ timeline ,title }: { timeline: Timeline[], ti
     return (
         <>
         <h2 className="font-semibold text-xl md:text-3xl py-4 px-4 font-sans text-main ">{title}</h2>
-        <div className="max-h-[80dvh] scroll-auto overflow-y-scroll scrollbar-thin scrollbar-thumb-main scrollbar-track-gray-200">
+        <div className="max-h-[80dvh] scroll-auto overflow-y-scroll scrollbar-blue-600 scrollbar-thin scrollbar-thumb-main scrollbar-track-gray-700">
             
             {timeline.map((project: Timeline, index) => (
-                <div key={index} className="flex flex-row gap-2 m-2 text-black  ">
+                <div key={index} className="flex flex-row gap-2 m-2 text-foreground  ">
                     <div className="flex-1/10 relative
                      before:content-[''] before:absolute before:bg-main 
                      before:w-1 before:h-[70%] before:top-[70%] before:left-[50%]

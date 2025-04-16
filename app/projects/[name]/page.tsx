@@ -7,7 +7,7 @@ export default async function Page({params}: {params : Promise<{name:string}> })
    const {name} = await params;
    
    return (
-    <main className="container mx-auto py-8 px-4">
+    <main className="container min-w-[100vw] h-full py-8 px-5 bg-[#313131]">
       <Suspense fallback={<ProjectSkeleton />}>
         <ProjectContent name={name} />
       </Suspense>

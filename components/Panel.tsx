@@ -21,7 +21,7 @@ export default function Panel() {
                 />
                 <FontAwesomeIcon 
                     icon={isPanelVisible ? faXmark : faBars} 
-                    className={`${isPanelVisible ? 'text-white' : 'text-black'} text-xl`}
+                    className={`${isPanelVisible ? 'text-white' : 'text-foreground'} text-xl`}
                 />
             </label>
 
@@ -32,10 +32,10 @@ export default function Panel() {
                 <div className="flex flex-col justify-between h-full p-[1%] pt-16 ">
                     <div>
                         <PhotoBox 
-                            name="John Doe" 
+                            name="Alan " 
                             title="Programmer. Creative. Innovator" 
-                            description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor." 
-                            avatar="http://avatars0.githubusercontent.com/u/246180?v=4" 
+                            description=" Software Engineer Student" 
+                            avatar="https://avatars.githubusercontent.com/u/130498439?v=4" 
                         />
                         <Navigation />
                     </div>

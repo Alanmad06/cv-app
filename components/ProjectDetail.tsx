@@ -53,9 +53,9 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
   const { data } = projectData;
   
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg text-black">
+    <div className="max-w-4xl mx-auto p-6 bg-background rounded-lg shadow-lg text-foreground">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2 text-black">{data.name}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">{data.name}</h1>
         <p className="text-gray-600 mb-4">{data.description || 'No description available'}</p>
         
         <div className="flex flex-wrap gap-2 mb-4">
@@ -87,10 +87,10 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
       
       {readmeImages.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-4 text-black">Project Images</h2>
+          <h2 className="text-2xl font-bold mb-4 text-foregroundk">Project Images</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {readmeImages.map((imageUrl, index) => (
-              <div key={index} className="relative h-64 rounded-lg overflow-hidden">
+              <div key={index} className="relative h-64 rounded-lg overflow-hidden border-1 border-amber-200">
                 <Image
                   src={imageUrl} 
                   alt={`Project image ${index + 1}`} 
@@ -104,10 +104,10 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
       )}
       
       {readmeContent && (
-        <div className="mb-6 text-black">
+        <div className="mb-6 text-foreground">
           <h2 className="text-2xl font-bold mb-4">README</h2>
           <div className="prose max-w-none">
-            <pre className="whitespace-pre-wrap bg-gray-50 p-4 rounded-lg">
+            <pre className="whitespace-pre-wrap bg-[#313131] p-4 rounded-lg">
               {readmeContent}
             </pre>
           </div>
