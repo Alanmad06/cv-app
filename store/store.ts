@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import skillsReducer from './skillsSlice'
 import authReducer from './authSlice'
-import toggleTheme  from './themeSlice'
+
 
 export const store = configureStore({
   reducer: {
     skills: skillsReducer,
     auth: authReducer,
-    theme : toggleTheme
+    
   },
 })
 

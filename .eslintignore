@@ -1,0 +1,7 @@
+lib/generated/**
+# Ignore node_modules
+node_modules/
+
+# Ignore build output
+.next/
+out/

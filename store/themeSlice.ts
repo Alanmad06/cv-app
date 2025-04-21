@@ -8,7 +8,7 @@ interface ThemeState {
 }
 
 const initialState : ThemeState = {
-    theme: localStorage.getItem('theme') || 'dark' // Valor inicial basado en el almacenamiento local o 'light' por defecto
+    theme:'dark' // Valor inicial basado en el almacenamiento local o 'light' por defecto
 }
 const themeSlice = createSlice({
     name: 'theme',
@@ -16,7 +16,11 @@ const themeSlice = createSlice({
     reducers :{
         toggleTheme : (state) => {
             state.theme = state.theme === 'dark' ? 'light' : 'dark'
+        }, 
+        setTheme : (state, action)=>{
+            state.theme = action.payload
         }
+
     }
 })
 

@@ -5,7 +5,8 @@ import { useState, useMemo, useEffect } from "react";
 import type { Portfolio } from "@/interfaces/portfolio";
 import { useRouter } from "next/navigation";
 
-// Sample projects as fallback
+
+
 
 
 export default function Portfolio() {
@@ -95,17 +96,16 @@ export default function Portfolio() {
             {/* Botones de filtrado con estado activo */}
             <div className="flex flex-wrap mb-4 px-2 gap-2 text-foreground items-center">
                 {categories.map((category, index) => (
-                    <>
+                    <div key={`${index + category}`}>
                         <button
                             className={`  transition-colors duration-300 cursor-pointer ${selectedCategory === category ? 'text-main' : 'text-foreground '}`}
-                            key={`${index + category}`}
                             onClick={() => setSelectedCategory(category)}
                             aria-pressed={selectedCategory === category}
                         >
                             {category}
                         </button>
                         {(index === categories.length - 1) ? "" : "/"}
-                    </>
+                    </div>
                 ))}
             </div>
 
