@@ -11,7 +11,7 @@ import {  Repository } from '@/interfaces/repos';
 export default function ProjectDetail({projectData }: {projectData : Repository}) {
   const [readmeContent, setReadmeContent] = useState<string>('');
   const [readmeImages, setReadmeImages] = useState<string[]>([]);
-  console.log(projectData)
+  
   
   useEffect(() => {
     
