@@ -2,7 +2,7 @@
 
 import { Skill } from "@/interfaces/skills";
 import { z } from "zod";
-import prisma from "./prisma";
+import prisma from "./db";
 import { ProjectData, Repository } from "@/interfaces/repos";
 
 
