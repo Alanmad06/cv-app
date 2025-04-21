@@ -3,6 +3,7 @@
 import { Skill } from "@/interfaces/skills";
 import { z } from "zod";
 import prisma from "./prisma";
+import { ProjectData, Repository } from "@/interfaces/repos";
 
 
 const skillSchema = z.object({
@@ -111,11 +112,11 @@ export const login = async ({
   return { access: false };
 };
 
-export const fetchProject= async (title : string) => {
+export const fetchProject = async (title: string): Promise<ProjectData> => {
 
   try {
     const response = await fetch(`https://api.github.com/repos/Alanmad06/${title}`)
-    const data = await response.json()
+    const data : Repository= await response.json() 
     return { data }
   }catch(error){
     return {error}

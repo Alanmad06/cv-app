@@ -3,8 +3,8 @@ import type { Timeline } from "@/interfaces/timeline";
 export default function Timeline({ timeline ,title }: { timeline: Timeline[], title: string }) {
     return (
         <>
-        <h2 className="font-semibold text-xl md:text-3xl py-4 px-4 font-sans text-main ">{title}</h2>
-        <div className="max-h-[80dvh] scroll-auto overflow-y-scroll scrollbar-blue-600 scrollbar-thin scrollbar-thumb-main scrollbar-track-gray-700">
+        <h2 className="font-semibold text-xl md:text-3xl py-4 font-sans text-main ">{title}</h2>
+        <div className="max-h-[80dvh] overflow-y-scroll  scrollbar-thin scrollbar-thumb-[#26C17E] scrollbar-track-gray-800 pr-2">
             
             {timeline.map((project: Timeline, index) => (
                 <div key={index} className="flex flex-row gap-2 m-2 text-foreground  ">

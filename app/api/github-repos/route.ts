@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { Portfolio } from '@/interfaces/portfolio';
+import { Repository } from '@/interfaces/repos';
 
 // GitHub username
 const GITHUB_USERNAME = "Alanmad06";
@@ -10,22 +11,23 @@ export async function GET() {
     const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`);
     
     if (!response.ok) {
+     
       throw new Error('Failed to fetch repositories');
     }
     
     const repos = await response.json();
     
     // Filter repos with the specific description format
-    const regex = /^[\w\s]+ \| [\w\s.,+-]+ \| .{5,}$/;
+    const regex = /^[\w\s-]+ \| [\w\s.,+-]+ \| .{5,}$/;
     
-    const filteredRepos = repos.filter((repo: any) => {
+    const filteredRepos = repos.filter((repo: Repository) => {
       return repo.description && regex.test(repo.description);
     });
     
     // Transform GitHub repos to Portfolio format with README images
-    const portfolioProjects: Portfolio[] = await Promise.all(filteredRepos.map(async (repo: any) => {
+    const portfolioProjects: Portfolio[] = await Promise.all(filteredRepos.map(async (repo: Repository) => {
       // Parse description: Tipo | Tecnologías | Descripción corta
-      const descriptionParts = repo.description.split('|').map((part: string) => part.trim());
+      const descriptionParts = repo.description!.split('|').map((part: string) => part.trim());
       const category = descriptionParts[0].trim();
       const technologies = descriptionParts[1].trim();
       const shortDescription = descriptionParts[2].trim();

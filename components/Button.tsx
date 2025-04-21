@@ -12,7 +12,7 @@ export default function Button({icon, text, className = "", link =''}: {icon: Re
    
     
     return(
-        <button onClick={()=>{handleClick()}} className={`cursor-pointer self-center rounded-md max-w-40 min-w-10 h-10  inline-flex justify-center items-center flex-nowrap my-2 px-2 ${className}`}>
+        <button onClick={()=>{handleClick()}} className={`cursor-pointer self-center rounded-md max-w-40 min-w-10 h-10  inline-flex justify-center items-center flex-nowrap my-2 px-2 transition-all ease-in-out duration-300 ${className}`}>
          
           <i>{icon}</i>
           <p className=" max-[260px]:hidden pl-1 font-sans">{text}</p>

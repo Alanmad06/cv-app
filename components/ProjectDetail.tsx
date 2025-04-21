@@ -3,19 +3,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import {  Repository } from '@/interfaces/repos';
 
-interface ProjectDetailProps {
-  projectData: any;
-}
 
-export default function ProjectDetail({ projectData }: ProjectDetailProps) {
+
+
+export default function ProjectDetail({projectData }: {projectData : Repository}) {
   const [readmeContent, setReadmeContent] = useState<string>('');
   const [readmeImages, setReadmeImages] = useState<string[]>([]);
+  console.log(projectData)
   
   useEffect(() => {
-    if (projectData?.data) {
+    
+    if (projectData) {
       // Fetch README content
-      fetchReadmeContent(projectData.data.owner.login, projectData.data.name);
+      fetchReadmeContent(projectData.owner!.login!, projectData.name!);
     }
   }, [projectData]);
   
@@ -28,7 +30,7 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
         
         // Decode content from base64
         const content = atob(readmeData.content);
-        const contentClear = content.match(/\|\s*(.*?)\s*\|/);
+        const contentClear = content.match(/\|\s*(.*?[\s\S]*?)(\n*?)\s*\|/);
        
         setReadmeContent(contentClear ? contentClear[1] : '');
         
@@ -46,20 +48,20 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
     }
   };
   
-  if (!projectData?.data) {
+  if (!projectData) {
     return <div>No project data available</div>;
   }
   
-  const { data } = projectData;
+  const { name, description, topics , stargazers_count, forks_count , html_url} = projectData;
   
   return (
     <div className="max-w-4xl mx-auto p-6 bg-background rounded-lg shadow-lg text-foreground">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">{data.name}</h1>
-        <p className="text-gray-600 mb-4">{data.description || 'No description available'}</p>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">{name}</h1>
+        <p className="text-gray-600 mb-4">{description || 'No description available'}</p>
         
         <div className="flex flex-wrap gap-2 mb-4">
-          {data.topics && data.topics.map((topic: string) => (
+          {topics && topics.map((topic: string) => (
             <span key={topic} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
               {topic}
             </span>
@@ -69,14 +71,14 @@ export default function ProjectDetail({ projectData }: ProjectDetailProps) {
         <div className="flex gap-4 mb-6">
           <div className="flex items-center">
             <span className="font-medium mr-2">⭐</span>
-            <span>{data.stargazers_count}</span>
+            <span>{stargazers_count}</span>
           </div>
           <div className="flex items-center">
             <span className="font-medium mr-2">🍴</span>
-            <span>{data.forks_count}</span>
+            <span>{forks_count}</span>
           </div>
           <Link 
-            href={data.html_url} 
+            href={html_url!} 
             target="_blank" 
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >

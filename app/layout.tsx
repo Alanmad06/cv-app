@@ -34,13 +34,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="system">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased  bg-background `}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased bg-background text-foreground`}
       >
       
           <Panel/>
-     
           {children}
        
       </body>

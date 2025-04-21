@@ -50,9 +50,9 @@ export default function Skills() {
   }, [dispatch]);
 
   return (
-    <div className="my-6 p-2">
+    <div className=" ">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-xl md:text-3xl py-4 px-1 font-sans text-main">Skills</h2>
+        <h2 className="font-semibold text-xl md:text-3xl py-4  font-sans text-main">Skills</h2>
         <div className="flex gap-2 ">
           {isAuthenticated ? (
             <>
@@ -83,7 +83,7 @@ export default function Skills() {
       {loading ? (
         <SkillSkeleton />
       ) : (
-        <div className='max-h-[80dvh] scroll-auto overflow-y-scroll pr-2'>
+        <div className='max-h-[80dvh] scroll-auto overflow-y-scroll  scrollbar-thin scrollbar-thumb-[#26C17E] scrollbar-track-gray-800 pr-2'>
           {skills.length> 0 && skills.map((skill) => (
             <SkillBar key={skill.id} skill={skill} />
           ))}
