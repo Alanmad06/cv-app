@@ -15,7 +15,7 @@ export default function Address({id}:{id:string}) {
         },
         {
             icon: <FontAwesomeIcon icon={faGitlab} size="lg" />,
-            info: "https://github.com/Alanmad06"
+            info: "https://gitlab.com/madrigal.saenz.alan"
         },
         {
             icon: <FontAwesomeIcon icon={faMobilePhone} size="lg" />,
