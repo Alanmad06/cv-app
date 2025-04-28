@@ -60,14 +60,14 @@ export default function SkillsForm() {
 
   return (
     <div className="fixed inset-0 bg-[#0000008f] bg-opacity-50 flex items-center justify-center z-50 ">
-      <div className="bg-white p-6 rounded-md shadow-lg max-w-md w-full ">
+      <div className="bg-background p-6 rounded-md shadow-lg max-w-md w-full ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-main">
             {formMode === 'add' ? 'Add New Skill' : 'Edit Skill'}
           </h2>
           <button 
             onClick={() => setIsFormVisible(false)}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-foreground hover:text-gray-700"
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -75,21 +75,21 @@ export default function SkillsForm() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Skill name
             </label>
             <input
               type="text"
               value={skillName}
               onChange={(e) => setSkillName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-main"
+              className="w-full px-3 py-2 border text-foreground border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-main"
               placeholder="Enter skill name"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Skill range: {skillLevel}%
             </label>
             <input
@@ -118,9 +118,9 @@ export default function SkillsForm() {
         </form>
 
         {skills.length > 0 && (
-          <div className="mt-6">
-            <h3 className="text-lg font-medium mb-2">Manage Skills</h3>
-            <div className="max-h-60 overflow-y-auto">
+          <div className="mt-6 ">
+            <h3 className="text-lg font-medium mb-2 ">Manage Skills</h3>
+            <div className="max-h-60 overflow-y-auto  scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar pr-2">
               {skills.map((skill) => (
                 <div key={skill.id} className="flex items-center justify-between py-2 border-b">
                   <div>

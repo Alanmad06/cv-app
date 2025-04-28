@@ -9,15 +9,15 @@ import { logout } from '@/store/authSlice';
 // Componente Skeleton para mostrar durante la carga
 const SkillSkeleton = () => {
   return (
-    <div className="animate-pulse">
-      <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-      <div className="h-6 bg-gray-200 rounded mb-4"></div>
-      <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-      <div className="h-6 bg-gray-200 rounded mb-4"></div>
-      <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-      <div className="h-6 bg-gray-200 rounded mb-4"></div>
-      <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-      <div className="h-6 bg-gray-200 rounded mb-4"></div>
+    <div className="animate-pulse pr-2">
+      <div className="h-[32px] w-[57px] bg-gray-200 rounded  mb-2"></div>
+      <div className="h-[24px] w-full bg-gray-200 rounded mb-4"></div>
+      <div className="h-[32px] w-[57px] bg-gray-200 rounded  mb-2"></div>
+      <div className="h-[24px] w-full bg-gray-200 rounded mb-4"></div>
+      <div className="h-[32px] w-[57px] bg-gray-200 rounded  mb-2"></div>
+      <div className="h-[24px] w-full bg-gray-200 rounded mb-4"></div>
+      <div className="h-[32px] w-[57px] bg-gray-200 rounded  mb-2"></div>
+      <div className="h-[24px] w-full bg-gray-200 rounded mb-4"></div>
     </div>
   );
 };
@@ -30,8 +30,8 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
         {skill.name}
       </div>
       <div className="w-full bg-gray-200 rounded-sm h-6 relative">
-        <div 
-          className="bg-[#26C17E] h-6 rounded-sm" 
+        <div
+          className="bg-[#26C17E] h-6 rounded-sm"
           style={{ width: `${skill.level}%` }}
         ></div>
       </div>
@@ -56,13 +56,13 @@ export default function Skills() {
         <div className="flex gap-2 ">
           {isAuthenticated ? (
             <>
-              <button 
+              <button
                 className="bg-[#222935] text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
                 onClick={() => document.dispatchEvent(new CustomEvent('openSkillsForm'))}
               >
                 Open edit
               </button>
-              <button 
+              <button
                 className="bg-red-600 text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
                 onClick={() => dispatch(logout())}
               >
@@ -70,7 +70,7 @@ export default function Skills() {
               </button>
             </>
           ) : (
-            <button 
+            <button
               className="bg-[#26C17E] text-white px-3 py-1 rounded-sm hover:bg-opacity-80 transition-all"
               onClick={() => document.dispatchEvent(new CustomEvent('openLoginForm'))}
             >
@@ -83,18 +83,21 @@ export default function Skills() {
       {loading ? (
         <SkillSkeleton />
       ) : (
-        <div className='max-h-[80dvh] scroll-auto overflow-y-scroll  scrollbar-thin scrollbar-thumb-[#26C17E] scrollbar-track-gray-800 pr-2'>
-          {skills.length> 0 && skills.map((skill) => (
-            <SkillBar key={skill.id} skill={skill} />
-          ))}
-          
+        <>
+          <div className='max-h-[50dvh] scroll-auto overflow-y-scroll  scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar pr-2'>
+            {skills.length > 0 && skills.map((skill) => (
+              <SkillBar key={skill.id} skill={skill} />
+            ))}
+
+
+          </div>
           <div className="flex justify-between mt-2 text-sm text-gray-600">
             <span>Beginner</span>
             <span>Proficient</span>
             <span>Expert</span>
             <span>Master</span>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

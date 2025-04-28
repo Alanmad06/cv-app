@@ -10,9 +10,9 @@ export default function Panel() {
     const [isPanelVisible, setIsPanelVisible] = useState(false);
 
     return (
-        <div className="relative">
+        <div className="relative text-white">
             {/* Hamburger menu button */}
-            <label className="fixed top-[1%] left-[1%] z-50 cursor-pointer  p-2 rounded-md hover:bg-opacity-80 transition-all">
+            <label className="fixed top-[1%] left-[1%] z-50 cursor-pointer text-foreground  p-2 rounded-md hover:bg-opacity-80 transition-all">
                 <input
                     type="checkbox"
                     className="hidden"
@@ -21,7 +21,7 @@ export default function Panel() {
                 />
                 <FontAwesomeIcon 
                     icon={isPanelVisible ? faXmark : faBars} 
-                    className={`${isPanelVisible ? 'text-white' : 'text-foreground'} text-xl`}
+                    className={` text-xl`}
                 />
             </label>
 
@@ -36,13 +36,14 @@ export default function Panel() {
                             title="Programmer. Creative. Innovator" 
                             description=" Software Engineer Student" 
                             avatar="https://avatars.githubusercontent.com/u/130498439?v=4" 
+                            className="text-white"
                         />
                         <Navigation />
                     </div>
                     <Button
                         icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
                         text="Go Home"
-                        className="bg-[#10141b]"
+                        className="bg-[#10141b] text-white"
                         link="/portfolio"
                     />
                 </div>

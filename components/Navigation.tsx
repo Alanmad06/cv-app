@@ -1,4 +1,4 @@
-import { faAddressCard, faBook, faBriefcase, faComment, faPen, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faBook, faBriefcase, faList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Navigation() {
@@ -10,33 +10,30 @@ export default function Navigation() {
       {
         icon : <FontAwesomeIcon icon={faUser} size={size} />,
         title: 'About me',
-        url: '#about',
+        url: '/portfolio#about-me',
       },
       {
         icon : <FontAwesomeIcon icon={faBook} size={size} />, // Icon
         title: 'Education',
-        url: '#education',
+        url: '/portfolio#education',
       },
-      {
-        icon : <FontAwesomeIcon icon={faPen} size={size} />, // Icon
-        title: 'Experience',
-        url: '#experience',
-      },
+      
       {
         icon : <FontAwesomeIcon icon={faBriefcase} size={size} />, // Icon
         title : 'Portfolio',
-        url : '#portfolio',
+        url : '/portfolio#portfolio',
       },
       {
         icon : <FontAwesomeIcon icon={faAddressCard} size={size}/>,
         title : 'Contacts',
-        url: '#contacts'
+        url: '/portfolio#contacts'
       },
       {
-        icon : <FontAwesomeIcon icon={faComment} size={size}/>,
-        title: 'Feedback',
-        url : '#feedback'
-      }
+        icon : <FontAwesomeIcon icon={faList} size={size}/>,
+        title : 'Skills',
+        url: '/portfolio#skills'
+      },
+      
 
     ];
 

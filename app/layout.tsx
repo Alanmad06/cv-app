@@ -5,6 +5,7 @@ import "./globals.css";
 // Importar la configuración de Font Awesome
 import "@/lib/fontawesome";
 import Panel from "@/components/Panel";
+import Providers from "@/components/Providers";
 
 
 
@@ -34,13 +35,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="system">
+    <html lang="en" data-theme="system" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased bg-background text-foreground`}
       >
-      
-          <Panel/>
-          {children}
+      <Providers>
+      <Panel/>
+      {children}
+      </Providers>
+          
        
       </body>
     </html>

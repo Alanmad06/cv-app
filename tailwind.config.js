@@ -13,7 +13,8 @@ export default config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        main: 'var(--main)'
+        main: 'rgba(var(--main))',
+        scrollbar : 'rgba(var(--scrollbar))' 
       }
     },
   },

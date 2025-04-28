@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import { useTheme } from "next-themes";
 
 export default function ToggleButton({
@@ -11,7 +11,7 @@ export default function ToggleButton({
         setTheme(theme === 'dark' ? 'light' : 'dark');
     };
 
-    const [mounted, setMounted] = React.useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true)
@@ -46,3 +46,4 @@ export default function ToggleButton({
     );
 
 }
+

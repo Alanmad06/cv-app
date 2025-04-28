@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 
 
-export default function Portfolio() {
+export default function Portfolio({id}:{id:string}) {
     const [projects, setProjects] = useState<Portfolio[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -88,7 +88,7 @@ export default function Portfolio() {
     );
 
     return (
-        <div className="pb-10">
+        <section className="pb-10" id={id}>
             <h2 className="font-semibold text-xl md:text-3xl py-4  font-sans text-main ">Projects</h2>
 
 
@@ -104,7 +104,7 @@ export default function Portfolio() {
                         >
                             {category}
                         </button>
-                        {(index === categories.length - 1) ? "" : "/"}
+                        {(index === categories.length - 1) ? "" : " /"}
                     </div>
                 ))}
             </div>
@@ -119,6 +119,6 @@ export default function Portfolio() {
                     <ProjectItem project={project} index={index} key={index} />
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

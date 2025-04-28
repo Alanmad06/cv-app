@@ -1,29 +1,36 @@
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar';
 
+
+
 @theme{
-  --color-main : #26C17E;
+  --color-main : rgba(var(--main));
+  --color-background : rgba(var(--background));
+  --color-foreground : rgba(var(--foreground));
+  --color-scrollbar : rgba(var(--scrollbar));
+  --color-main : rgba(var(--main));
+  
 }
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --main: #26C17E;
+
+
+.light {
+  --background: 218, 218, 218 ;
+  --foreground: 6, 6, 6  ;
+  --scrollbar : 243, 243, 243;
+ 
+  --main: 38, 193, 126;
   --font-sans: var(--font-open-sans), sans-serif;  
 }
 
 .dark {
-  --background: #232323;
-  --foreground: #ededed;
-  --main: #26C17E;
-  
+  --background: 56, 56, 56 ;
+  --foreground: 214, 214, 214 ;
+  --scrollbar: 52, 56, 54  ;
+  --main: 38, 193, 126;
+    
 }
 
-@layer base {
-  
-body {
-  @apply dark:bg-[#232323] dark:text-[#ededed]  ;
-}
-}
+
 
 body {
   background: var(--background);
@@ -31,5 +38,9 @@ body {
   font-family: var(--font-open-sans), sans-serif;  
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+  
  
+}
+html{
+  scroll-behavior: smooth;
 }

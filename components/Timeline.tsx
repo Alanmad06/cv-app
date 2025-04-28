@@ -1,10 +1,10 @@
 import type { Timeline } from "@/interfaces/timeline";
 
-export default function Timeline({ timeline ,title }: { timeline: Timeline[], title: string }) {
+export default function Timeline({ timeline ,title ,id}: { timeline: Timeline[], title: string ,id:string}) {
     return (
-        <>
+        <section id={id}>
         <h2 className="font-semibold text-xl md:text-3xl py-4 font-sans text-main ">{title}</h2>
-        <div className="max-h-[80dvh] overflow-y-scroll  scrollbar-thin scrollbar-thumb-[#26C17E] scrollbar-track-gray-800 pr-2">
+        <div className="max-h-[80dvh] overflow-y-scroll  scrollbar-thin scrollbar-thumb-[#26C17E] scrollbar-track-scrollbar pr-2">
             
             {timeline.map((project: Timeline, index) => (
                 <div key={index} className="flex flex-row gap-2 m-2 text-foreground  ">
@@ -28,6 +28,6 @@ export default function Timeline({ timeline ,title }: { timeline: Timeline[], ti
                 </div>
             ))}
         </div>
-        </>
+        </section>
     );
 }

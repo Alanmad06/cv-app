@@ -1,8 +1,8 @@
-export default function Info({ info }: { info: string }) {
+export default function Info({ info ,id }: { info: string ,id: string }) {
     return(
-        <section className="bg-gray-500 p-4 " >
+        <article id={id} className="bg-gray-500 p-4 " >
             {info}
-        </section>
+        </article>
     )
 
 }

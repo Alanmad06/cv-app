@@ -2,7 +2,7 @@ import { faGithub, faGitlab } from "@fortawesome/free-brands-svg-icons"
 import { faEnvelope, faMobilePhone } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon  } from "@fortawesome/react-fontawesome"
 
-export default function Address() {
+export default function Address({id}:{id:string}) {
 
     const contacts = [
         {
@@ -28,9 +28,10 @@ export default function Address() {
     ]
 
     return (
-        <div className="flex flex-col justify-center items-center w-[100%] m-2 p-2">
+        <section id={id} className="flex flex-col justify-center items-start w-[100%]  py-2">
+            <h2 className="font-semibold text-xl md:text-3xl py-4  font-sans text-main">Contacts</h2>
             {contacts.map((contact, index) => (
-                <div key={index} className="flex flex-col my-2 items-center">
+                <div key={index} className="flex flex-col my-2 ">
                     <div className="flex flex-row gap-2 items-center text-main">
                         {contact.icon}
                         <div className="pl-2">
@@ -40,7 +41,7 @@ export default function Address() {
                     </div>
                 </div>
             ))}
-        </div>
+        </section>
 
 
     )

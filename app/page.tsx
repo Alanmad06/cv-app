@@ -1,5 +1,5 @@
 import PhotoBox from "@/components/PhotoBox";
-
+import Image from 'next/image';
 
 
 
@@ -7,15 +7,29 @@ import PhotoBox from "@/components/PhotoBox";
 
 export default function Home() {
   return (
-   
-    <PhotoBox 
+   <div className=" w-full h-full">
+<div className="absolute w-[100dvw] h-[100dvh] z-0 flex items-center justify-center overflow-hidden">
+  <Image 
+    src="/assets/image.png" 
+    alt="SVG Image" 
+    fill 
+    className="object-cover"
+    priority 
+    
+  />
+</div>
+
+   <PhotoBox 
     name="Alan Madrigal Saenz" 
     title="Programmer. Creative. Innovator" 
     description=" Software Engineer Student "
-     avatar="https://avatars.githubusercontent.com/u/130498439?v=4" 
+    avatar="https://avatars.githubusercontent.com/u/130498439?v=4" 
     big
-    className="text-black "
+    className="z-1"
     
 />
+   </div>
+   
+
   );
 }
