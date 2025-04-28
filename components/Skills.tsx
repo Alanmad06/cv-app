@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchSkills } from '@/store/skillsSlice';
 import { Skill } from '@/interfaces/skills';
-import { logout } from '@/store/authSlice';
+/* import { logout } from '@/store/authSlice'; */
 
 // Componente Skeleton para mostrar durante la carga
 const SkillSkeleton = () => {
@@ -43,7 +43,7 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
 export default function Skills() {
   const dispatch = useDispatch<AppDispatch>();
   const { skills, loading } = useSelector((state: RootState) => state.skills);
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+ /*  const { isAuthenticated } = useSelector((state: RootState) => state.auth); */
 
   useEffect(() => {
     dispatch(fetchSkills());
@@ -53,7 +53,7 @@ export default function Skills() {
     <div className=" ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-xl md:text-3xl py-4  font-sans text-main">Skills</h2>
-        <div className="flex gap-2 ">
+        {/* <div className="flex gap-2 ">
           {isAuthenticated ? (
             <>
               <button
@@ -77,7 +77,7 @@ export default function Skills() {
               Login
             </button>
           )}
-        </div>
+        </div> */}
       </div>
 
       {loading ? (
