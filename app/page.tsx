@@ -25,7 +25,7 @@ export default function Home() {
     description=" Software Engineer Student "
     avatar="https://avatars.githubusercontent.com/u/130498439?v=4" 
     big
-    className="z-1"
+    className="z-1 text-black"
     
 />
    </div>
