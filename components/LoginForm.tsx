@@ -42,6 +42,7 @@ export default function LoginForm() {
           <button 
             onClick={() => setIsFormVisible(false)}
             className="text-gray-500 hover:text-gray-700"
+            data-testid='close'
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -87,6 +88,7 @@ export default function LoginForm() {
               type="submit"
               disabled={loading}
               className="bg-[#26C17E] text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50"
+              data-testid='login'
             >
               {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
             </button>

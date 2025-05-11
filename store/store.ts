@@ -3,13 +3,19 @@ import skillsReducer from './skillsSlice'
 import authReducer from './authSlice'
 
 
-export const store = configureStore({
-  reducer: {
-    skills: skillsReducer,
-    auth: authReducer,
-    
-  },
-})
+export const setUpStore  =( preloadedState ={})=>{
+ return configureStore({
+    reducer: {
+      skills: skillsReducer,
+      auth: authReducer,
+      
+    },
+    preloadedState
+  })
+} 
+
+const store = setUpStore();
+export default store;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

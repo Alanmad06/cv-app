@@ -1,7 +1,7 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import { store } from '@/store/store';
+import  store  from '@/store/store';
 import { ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
 import ThemeInitializer from './ThemeInitializer';
