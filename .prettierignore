@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+
+# build output
+.next
+out
+build
+coverage
+package-lock.json
+
+# generated files
+next-env.d.ts
+lib/generated
+prisma/migrations
+
+# local tooling state
+.opencode

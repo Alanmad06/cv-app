@@ -1,57 +1,61 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store/store';
-import { addSkill, updateSkill, deleteSkill } from '@/store/skillsSlice';
-import { Skill } from '@/interfaces/skills';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
+"use client";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { addSkill, updateSkill, deleteSkill } from "@/store/skillsSlice";
+import { Skill } from "@/interfaces/skills";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function SkillsForm() {
   const dispatch = useDispatch<AppDispatch>();
   const { skills, loading } = useSelector((state: RootState) => state.skills);
-  
+
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [formMode, setFormMode] = useState<'add' | 'edit'>('add');
+  const [formMode, setFormMode] = useState<"add" | "edit">("add");
   const [currentSkill, setCurrentSkill] = useState<Skill | null>(null);
-  const [skillName, setSkillName] = useState('');
+  const [skillName, setSkillName] = useState("");
   const [skillLevel, setSkillLevel] = useState(50);
 
   // Escuchar el evento personalizado para abrir el formulario
   useEffect(() => {
     const handleOpenForm = () => setIsFormVisible(true);
-    document.addEventListener('openSkillsForm', handleOpenForm);
-    return () => document.removeEventListener('openSkillsForm', handleOpenForm);
+    document.addEventListener("openSkillsForm", handleOpenForm);
+    return () => document.removeEventListener("openSkillsForm", handleOpenForm);
   }, []);
 
   const resetForm = () => {
-    setSkillName('');
+    setSkillName("");
     setSkillLevel(50);
-    setFormMode('add');
+    setFormMode("add");
     setCurrentSkill(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (formMode === 'add') {
+
+    if (formMode === "add") {
       dispatch(addSkill({ name: skillName, level: skillLevel }));
-    } else if (formMode === 'edit' && currentSkill) {
-      dispatch(updateSkill({ ...currentSkill, name: skillName, level: skillLevel }));
+    } else if (formMode === "edit" && currentSkill) {
+      dispatch(
+        updateSkill({ ...currentSkill, name: skillName, level: skillLevel }),
+      );
     }
-    
+
     resetForm();
   };
 
   const handleEdit = (skill: Skill) => {
-    setFormMode('edit');
+    setFormMode("edit");
     setCurrentSkill(skill);
     setSkillName(skill.name);
     setSkillLevel(skill.level);
   };
 
   const handleDelete = (id: string) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar esta habilidad?')) {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar esta habilidad?")
+    ) {
       dispatch(deleteSkill(id));
     }
   };
@@ -59,13 +63,13 @@ export default function SkillsForm() {
   if (!isFormVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#0000008f] bg-opacity-50 flex items-center justify-center z-50 ">
-      <div className="bg-background p-6 rounded-md shadow-lg max-w-md w-full ">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-main">
-            {formMode === 'add' ? 'Add New Skill' : 'Edit Skill'}
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-[#0000008f]">
+      <div className="bg-background w-full max-w-md rounded-md p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-main text-xl font-semibold">
+            {formMode === "add" ? "Add New Skill" : "Edit Skill"}
           </h2>
-          <button 
+          <button
             onClick={() => setIsFormVisible(false)}
             className="text-foreground hover:text-gray-700"
           >
@@ -75,21 +79,21 @@ export default function SkillsForm() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="text-foreground mb-1 block text-sm font-medium">
               Skill name
             </label>
             <input
               type="text"
               value={skillName}
               onChange={(e) => setSkillName(e.target.value)}
-              className="w-full px-3 py-2 border text-foreground border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-main"
+              className="text-foreground focus:ring-main w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-1 focus:outline-none"
               placeholder="Enter skill name"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label className="text-foreground mb-1 block text-sm font-medium">
               Skill range: {skillLevel}%
             </label>
             <input
@@ -98,9 +102,9 @@ export default function SkillsForm() {
               max="100"
               value={skillLevel}
               onChange={(e) => setSkillLevel(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
             />
-            <div className="flex justify-between mt-1 text-xs text-gray-500">
+            <div className="mt-1 flex justify-between text-xs text-gray-500">
               <span>Beginner</span>
               <span>Proficient</span>
               <span>Expert</span>
@@ -111,18 +115,25 @@ export default function SkillsForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-main text-white py-2 rounded-md hover:bg-opacity-90 transition-all"
+            className="bg-main hover:bg-opacity-90 w-full rounded-md py-2 text-white transition-all"
           >
-            {loading ? 'Processing...' : formMode === 'add' ? 'Add skill' : 'Update skill'}
+            {loading
+              ? "Processing..."
+              : formMode === "add"
+                ? "Add skill"
+                : "Update skill"}
           </button>
         </form>
 
         {skills.length > 0 && (
-          <div className="mt-6 ">
-            <h3 className="text-lg font-medium mb-2 ">Manage Skills</h3>
-            <div className="max-h-60 overflow-y-auto  scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar pr-2">
+          <div className="mt-6">
+            <h3 className="mb-2 text-lg font-medium">Manage Skills</h3>
+            <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-60 overflow-y-auto pr-2">
               {skills.map((skill) => (
-                <div key={skill.id} className="flex items-center justify-between py-2 border-b">
+                <div
+                  key={skill.id}
+                  className="flex items-center justify-between border-b py-2"
+                >
                   <div>
                     <p className="font-medium">{skill.name}</p>
                     <p className="text-sm text-gray-500">{skill.level}%</p>

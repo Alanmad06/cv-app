@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
@@ -6,8 +5,6 @@ import "./globals.css";
 import "@/lib/fontawesome";
 import Panel from "@/components/Panel";
 import Providers from "@/components/Providers";
-
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,14 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="system" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} bg-background text-foreground antialiased`}
       >
-      <Providers>
-      <Panel/>
-      {children}
-      </Providers>
-          
-       
+        <Providers>
+          <Panel />
+          {children}
+        </Providers>
       </body>
     </html>
   );

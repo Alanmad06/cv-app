@@ -1,23 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
-import skillsReducer from './skillsSlice'
-import authReducer from './authSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import skillsReducer from "./skillsSlice";
+import authReducer from "./authSlice";
 
-
-export const setUpStore  =( preloadedState ={})=>{
- return configureStore({
+export const setUpStore = (preloadedState = {}) => {
+  return configureStore({
     reducer: {
       skills: skillsReducer,
       auth: authReducer,
-      
     },
-    preloadedState
-  })
-} 
+    preloadedState,
+  });
+};
 
 const store = setUpStore();
 export default store;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;

@@ -1,46 +1,39 @@
 @import "tailwindcss";
-@plugin 'tailwind-scrollbar';
+@plugin "tailwind-scrollbar";
 
-
-
-@theme{
-  --color-main : rgba(var(--main));
-  --color-background : rgba(var(--background));
-  --color-foreground : rgba(var(--foreground));
-  --color-scrollbar : rgba(var(--scrollbar));
-  --color-main : rgba(var(--main));
-  
+@theme {
+  --color-main: rgba(var(--main));
+  --color-background: rgba(var(--background));
+  --color-foreground: rgba(var(--foreground));
+  --color-scrollbar: rgba(var(--scrollbar));
+  --color-main: rgba(var(--main));
 }
 
-
 .light {
-  --background: 218, 218, 218 ;
-  --foreground: 6, 6, 6  ;
-  --scrollbar : 243, 243, 243;
- 
+  --background: 218, 218, 218;
+  --foreground: 6, 6, 6;
+  --scrollbar: 243, 243, 243;
+
   --main: 38, 193, 126;
-  --font-sans: var(--font-open-sans), sans-serif;  
+  --font-sans: var(--font-open-sans), sans-serif;
 }
 
 .dark {
-  --background: 56, 56, 56 ;
-  --foreground: 214, 214, 214 ;
-  --scrollbar: 52, 56, 54  ;
+  --background: 56, 56, 56;
+  --foreground: 214, 214, 214;
+  --scrollbar: 52, 56, 54;
   --main: 38, 193, 126;
-    
 }
-
-
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-open-sans), sans-serif;  
+  font-family: var(--font-open-sans), sans-serif;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  
- 
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
-html{
+html {
   scroll-behavior: smooth;
 }

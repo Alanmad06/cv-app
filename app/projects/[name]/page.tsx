@@ -4,11 +4,15 @@ import ProjectDetail from "@/components/ProjectDetail";
 import ProjectSkeleton from "@/components/ProjectSkeleton";
 import { ProjectData } from "@/interfaces/repos";
 
-export default async function Page({params}: {params : Promise<{name:string}> }) {
-   const {name} = await params;
-   
-   return (
-    <main className="container min-w-[100vw] h-full py-8 px-5 bg-[#313131]">
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
+  const { name } = await params;
+
+  return (
+    <main className="container h-full min-w-[100vw] bg-[#313131] px-5 py-8">
       <Suspense fallback={<ProjectSkeleton />}>
         <ProjectContent name={name} />
       </Suspense>
@@ -17,13 +21,10 @@ export default async function Page({params}: {params : Promise<{name:string}> })
 }
 
 async function ProjectContent({ name }: { name: string }) {
-  const project : ProjectData= await fetchProject(name);
-  if(project.data !== null) {
+  const project: ProjectData = await fetchProject(name);
+  if (project.data !== null) {
     return <ProjectDetail projectData={project.data!} />;
+  } else {
+    return <div>Project not found</div>;
   }
-  else {
-    return <div>Project not found</div>; 
-  }
-
-  
 }

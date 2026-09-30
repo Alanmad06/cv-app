@@ -1,24 +1,22 @@
-import scrollbar from 'tailwind-scrollbar';
+import scrollbar from "tailwind-scrollbar";
 
 /** @type {import('tailwindcss').Config} */
-export default config = {
+export default (config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        main: 'rgba(var(--main))',
-        scrollbar : 'rgba(var(--scrollbar))' 
-      }
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        main: "rgba(var(--main))",
+        scrollbar: "rgba(var(--scrollbar))",
+      },
     },
   },
-  plugins: [
-    scrollbar,
-  ],
-}
+  plugins: [scrollbar],
+});

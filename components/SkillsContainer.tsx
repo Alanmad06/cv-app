@@ -1,15 +1,14 @@
-'use client';
-import LoginForm from './LoginForm';
-import Skills from './Skills';
-import SkillsForm from './SkillsForm';
+"use client";
+import LoginForm from "./LoginForm";
+import Skills from "./Skills";
+import SkillsForm from "./SkillsForm";
 
-export default function SkillsContainer({id}:{id:string}) {
+export default function SkillsContainer({ id }: { id: string }) {
   return (
     <section id={id}>
-    <LoginForm />
-    <Skills />
-    <SkillsForm/>
+      <LoginForm />
+      <Skills />
+      <SkillsForm />
     </section>
-    
   );
 }

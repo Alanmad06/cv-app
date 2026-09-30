@@ -1,10 +1,8 @@
-
-
-export interface Feedback{
+export interface Feedback {
   feedback: string;
-  reporter :{
+  reporter: {
     photoUrl: string;
     name: string;
     citeUrl: string;
-  }
+  };
 }

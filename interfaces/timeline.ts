@@ -1,5 +1,5 @@
-export  interface Timeline {
- date : string;
- title : string;
- text : string;
+export interface Timeline {
+  date: string;
+  title: string;
+  text: string;
 }

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { login as loginAction } from '@/lib/action';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { login as loginAction } from "@/lib/action";
 
 // Estado inicial
 interface AuthState {
@@ -16,21 +16,24 @@ const initialState: AuthState = {
 
 // Thunk para login
 export const login = createAsyncThunk(
-  'auth/login',
-  async (credentials: { user: string; password: string }, { rejectWithValue }) => {
+  "auth/login",
+  async (
+    credentials: { user: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
       const response = await loginAction(credentials);
       return response.access;
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      return rejectWithValue('Error al iniciar sesión');
+      console.error("Error al iniciar sesión:", error);
+      return rejectWithValue("Error al iniciar sesión");
     }
-  }
+  },
 );
 
 // Slice
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
@@ -48,7 +51,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = action.payload;
         if (!action.payload) {
-          state.error = 'Credenciales incorrectas';
+          state.error = "Credenciales incorrectas";
         }
       })
       .addCase(login.rejected, (state, action) => {

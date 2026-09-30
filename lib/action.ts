@@ -5,12 +5,14 @@ import { z } from "zod";
 import prisma from "./db";
 import { ProjectData, Repository } from "@/interfaces/repos";
 
-
 const skillSchema = z.object({
   name: z.string(),
-  level: z.number().gt(0, {
-    message: "El nivel debe ser mayor a 0",
-  }).positive(),
+  level: z
+    .number()
+    .gt(0, {
+      message: "El nivel debe ser mayor a 0",
+    })
+    .positive(),
 });
 
 const loginSchema = z.object({
@@ -30,14 +32,13 @@ export const fetchSkills = async () => {
 
 export const addSkill = async (skill: Omit<Skill, "id">) => {
   const result = skillSchema.safeParse(skill);
-  
+
   if (!result.success) {
     console.log(result.error);
     return { error: result.error };
   }
   const { name: skillName, level } = result.data;
 
-  
   try {
     const newSkill = await prisma.skill.create({
       data: {
@@ -55,7 +56,7 @@ export const updateSkill = async (skill: Skill) => {
   const result = skillSchema.safeParse(skill);
   if (!result.success) {
     return { error: result.error };
-} 
+  }
 
   const { name: skillName, level } = result.data;
   try {
@@ -67,14 +68,12 @@ export const updateSkill = async (skill: Skill) => {
         name: skillName,
         level,
       },
-    }); 
+    });
     return { updatedSkill };
-
+  } catch (error) {
+    return { error };
   }
-  catch (error) {
-    return { error }; 
-  }
-}
+};
 
 export const deleteSkill = async (id: string) => {
   try {
@@ -96,15 +95,13 @@ export const login = async ({
   user: string;
   password: string;
 }) => {
-    
   const result = loginSchema.safeParse({ user, password });
   if (!result.success) {
     return { access: false };
   }
 
   const { user: userV, password: passwordV } = result.data;
-  
-  
+
   if (userV === process.env.USER && passwordV === process.env.PASSWORD) {
     return { access: true };
   }
@@ -112,13 +109,13 @@ export const login = async ({
 };
 
 export const fetchProject = async (title: string): Promise<ProjectData> => {
-
   try {
-    const response = await fetch(`https://api.github.com/repos/Alanmad06/${title}`)
-    const data : Repository= await response.json() 
-    return { data }
-  }catch(error){
-    return {error}
+    const response = await fetch(
+      `https://api.github.com/repos/Alanmad06/${title}`,
+    );
+    const data: Repository = await response.json();
+    return { data };
+  } catch (error) {
+    return { error };
   }
-
-}
+};
