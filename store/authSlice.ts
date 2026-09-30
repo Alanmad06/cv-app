@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { login as loginAction } from "@/lib/action";
+import { login as loginAction } from "@/lib/actions/auth";
 
 // Estado inicial
 interface AuthState {

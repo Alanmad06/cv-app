@@ -1,4 +1,4 @@
-import { fetchProject } from "@/lib/action";
+import { fetchProject } from "@/lib/actions/github";
 import { Suspense } from "react";
 import ProjectDetail from "@/components/ProjectDetail";
 import ProjectSkeleton from "@/components/ProjectSkeleton";
@@ -22,8 +22,8 @@ export default async function Page({
 
 async function ProjectContent({ name }: { name: string }) {
   const project: ProjectData = await fetchProject(name);
-  if (project.data !== null) {
-    return <ProjectDetail projectData={project.data!} />;
+  if (project.data) {
+    return <ProjectDetail projectData={project.data} />;
   } else {
     return <div>Project not found</div>;
   }

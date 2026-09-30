@@ -2,8 +2,7 @@
 
 import { Skill } from "@/interfaces/skills";
 import { z } from "zod";
-import prisma from "./db";
-import { ProjectData, Repository } from "@/interfaces/repos";
+import prisma from "@/lib/db";
 
 const skillSchema = z.object({
   name: z.string(),
@@ -13,11 +12,6 @@ const skillSchema = z.object({
       message: "El nivel debe ser mayor a 0",
     })
     .positive(),
-});
-
-const loginSchema = z.object({
-  user: z.string(),
-  password: z.string(),
 });
 
 export const fetchSkills = async () => {
@@ -83,38 +77,6 @@ export const deleteSkill = async (id: string) => {
       },
     });
     return { deletedSkill };
-  } catch (error) {
-    return { error };
-  }
-};
-
-export const login = async ({
-  user,
-  password,
-}: {
-  user: string;
-  password: string;
-}) => {
-  const result = loginSchema.safeParse({ user, password });
-  if (!result.success) {
-    return { access: false };
-  }
-
-  const { user: userV, password: passwordV } = result.data;
-
-  if (userV === process.env.USER && passwordV === process.env.PASSWORD) {
-    return { access: true };
-  }
-  return { access: false };
-};
-
-export const fetchProject = async (title: string): Promise<ProjectData> => {
-  try {
-    const response = await fetch(
-      `https://api.github.com/repos/Alanmad06/${title}`,
-    );
-    const data: Repository = await response.json();
-    return { data };
   } catch (error) {
     return { error };
   }

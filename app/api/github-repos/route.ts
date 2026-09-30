@@ -16,22 +16,22 @@ export async function GET() {
       throw new Error("Failed to fetch repositories");
     }
 
-    const repos = await response.json();
+    const repos: Repository[] = await response.json();
 
     // Filter repos with the specific description format
     const regex = /^[\w\s-]+ \| [\w\s.,+-]+ \| .{5,}$/;
 
-    const filteredRepos = repos.filter((repo: Repository) => {
+    const filteredRepos = repos.filter((repo) => {
       return repo.description && regex.test(repo.description);
     });
 
     // Transform GitHub repos to Portfolio format with README images
     const portfolioProjects: Portfolio[] = await Promise.all(
-      filteredRepos.map(async (repo: Repository) => {
+      filteredRepos.map(async (repo) => {
         // Parse description: Tipo | Tecnologías | Descripción corta
         const descriptionParts = repo
           .description!.split("|")
-          .map((part: string) => part.trim());
+          .map((part) => part.trim());
         const category = descriptionParts[0].trim();
         const technologies = descriptionParts[1].trim();
         const shortDescription = descriptionParts[2].trim();

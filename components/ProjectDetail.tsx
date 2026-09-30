@@ -16,7 +16,7 @@ export default function ProjectDetail({
   useEffect(() => {
     if (projectData) {
       // Fetch README content
-      fetchReadmeContent(projectData.owner!.login!, projectData.name!);
+      fetchReadmeContent(projectData.owner.login, projectData.name);
     }
   }, [projectData]);
 

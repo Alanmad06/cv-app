@@ -5,7 +5,7 @@ import {
   addSkill as addSkillAction,
   updateSkill as updateSkillAction,
   deleteSkill as deleteSkillAction,
-} from "@/lib/action";
+} from "@/lib/actions/skills";
 
 // Estado inicial
 interface SkillsState {
