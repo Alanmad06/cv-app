@@ -47,8 +47,8 @@ export default function Navigation() {
           href={item.url}
           className="hover:text-main active:text-main flex w-[100%] flex-row items-center justify-center gap-2 py-4 hover:bg-gray-500 max-[700px]:min-w-[20vw] min-[700px]:justify-start min-[700px]:pl-1"
         >
-          <i className="">{item.icon}</i>
-          <span className="font-sm px-4 max-[700px]:hidden">{item.title}</span>
+          <i>{item.icon}</i>
+          <span className="px-4 max-[700px]:hidden">{item.title}</span>
         </a>
       ))}
     </nav>

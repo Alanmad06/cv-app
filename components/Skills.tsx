@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { fetchSkills } from "@/store/skillsSlice";
 import { Skill } from "@/interfaces/skills";
 import { logout } from "@/store/authSlice";
-/* import { logout } from '@/store/authSlice'; */
+import Button from "./ui/Button";
 
 // Componente Skeleton para mostrar durante la carga
 const SkillSkeleton = () => {
@@ -51,7 +51,7 @@ export default function Skills() {
   }, [dispatch]);
 
   return (
-    <div className=" ">
+    <div>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-main py-4 font-sans text-xl font-semibold md:text-3xl">
           Skills
@@ -59,30 +59,30 @@ export default function Skills() {
         <div className="flex gap-2">
           {isAuthenticated ? (
             <>
-              <button
-                className="hover:bg-opacity-80 rounded-sm bg-[#222935] px-3 py-1 text-white transition-all"
+              <Button
+                className="rounded-sm bg-[#222935] px-3 py-1 text-white hover:bg-[#222935]/80"
                 onClick={() =>
                   document.dispatchEvent(new CustomEvent("openSkillsForm"))
                 }
               >
                 Open edit
-              </button>
-              <button
-                className="hover:bg-opacity-80 rounded-sm bg-red-600 px-3 py-1 text-white transition-all"
+              </Button>
+              <Button
+                className="rounded-sm bg-red-600 px-3 py-1 text-white hover:bg-red-600/80"
                 onClick={() => dispatch(logout())}
               >
                 Logout
-              </button>
+              </Button>
             </>
           ) : (
-            <button
-              className="hover:bg-opacity-80 rounded-sm bg-[#26C17E] px-3 py-1 text-white transition-all"
+            <Button
+              className="rounded-sm bg-[#26C17E] px-3 py-1 text-white hover:bg-[#26C17E]/80"
               onClick={() =>
                 document.dispatchEvent(new CustomEvent("openLoginForm"))
               }
             >
               Login
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -91,7 +91,7 @@ export default function Skills() {
         <SkillSkeleton />
       ) : (
         <>
-          <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-[50dvh] overflow-y-scroll scroll-auto pr-2">
+          <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-[50dvh] overflow-y-scroll pr-2">
             {skills.length > 0 &&
               skills.map((skill) => <SkillBar key={skill.id} skill={skill} />)}
           </div>

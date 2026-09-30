@@ -5,7 +5,9 @@ import { AppDispatch, RootState } from "@/store/store";
 import { addSkill, updateSkill, deleteSkill } from "@/store/skillsSlice";
 import { Skill } from "@/interfaces/skills";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Modal from "./ui/Modal";
+import Button from "./ui/Button";
 
 export default function SkillsForm() {
   const dispatch = useDispatch<AppDispatch>();
@@ -60,104 +62,97 @@ export default function SkillsForm() {
     }
   };
 
-  if (!isFormVisible) return null;
-
   return (
-    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-[#0000008f]">
-      <div className="bg-background w-full max-w-md rounded-md p-6 shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-main text-xl font-semibold">
-            {formMode === "add" ? "Add New Skill" : "Edit Skill"}
-          </h2>
-          <button
-            onClick={() => setIsFormVisible(false)}
-            className="text-foreground hover:text-gray-700"
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
+    <Modal
+      open={isFormVisible}
+      onClose={() => setIsFormVisible(false)}
+      title={formMode === "add" ? "Add New Skill" : "Edit Skill"}
+      panelClassName="bg-background"
+      closeClassName="text-foreground hover:text-gray-700"
+      closeLabel="Close"
+    >
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="text-foreground mb-1 block text-sm font-medium">
+            Skill name
+          </label>
+          <input
+            type="text"
+            value={skillName}
+            onChange={(e) => setSkillName(e.target.value)}
+            className="text-foreground focus:ring-main w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-1 focus:outline-none"
+            placeholder="Enter skill name"
+            required
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="text-foreground mb-1 block text-sm font-medium">
-              Skill name
-            </label>
-            <input
-              type="text"
-              value={skillName}
-              onChange={(e) => setSkillName(e.target.value)}
-              className="text-foreground focus:ring-main w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-1 focus:outline-none"
-              placeholder="Enter skill name"
-              required
-            />
+        <div className="mb-4">
+          <label className="text-foreground mb-1 block text-sm font-medium">
+            Skill range: {skillLevel}%
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={skillLevel}
+            onChange={(e) => setSkillLevel(parseInt(e.target.value))}
+            className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
+          />
+          <div className="mt-1 flex justify-between text-xs text-gray-500">
+            <span>Beginner</span>
+            <span>Proficient</span>
+            <span>Expert</span>
+            <span>Master</span>
           </div>
+        </div>
 
-          <div className="mb-4">
-            <label className="text-foreground mb-1 block text-sm font-medium">
-              Skill range: {skillLevel}%
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={skillLevel}
-              onChange={(e) => setSkillLevel(parseInt(e.target.value))}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
-            />
-            <div className="mt-1 flex justify-between text-xs text-gray-500">
-              <span>Beginner</span>
-              <span>Proficient</span>
-              <span>Expert</span>
-              <span>Master</span>
-            </div>
-          </div>
+        <Button
+          type="submit"
+          disabled={loading}
+          className="bg-main hover:bg-main/90 w-full rounded-md py-2 text-white disabled:opacity-50"
+        >
+          {loading
+            ? "Processing..."
+            : formMode === "add"
+              ? "Add skill"
+              : "Update skill"}
+        </Button>
+      </form>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-main hover:bg-opacity-90 w-full rounded-md py-2 text-white transition-all"
-          >
-            {loading
-              ? "Processing..."
-              : formMode === "add"
-                ? "Add skill"
-                : "Update skill"}
-          </button>
-        </form>
-
-        {skills.length > 0 && (
-          <div className="mt-6">
-            <h3 className="mb-2 text-lg font-medium">Manage Skills</h3>
-            <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-60 overflow-y-auto pr-2">
-              {skills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="flex items-center justify-between border-b py-2"
-                >
-                  <div>
-                    <p className="font-medium">{skill.name}</p>
-                    <p className="text-sm text-gray-500">{skill.level}%</p>
-                  </div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleEdit(skill)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(skill.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                  </div>
+      {skills.length > 0 && (
+        <div className="mt-6">
+          <h3 className="mb-2 text-lg font-medium">Manage Skills</h3>
+          <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-60 overflow-y-auto pr-2">
+            {skills.map((skill) => (
+              <div
+                key={skill.id}
+                className="flex items-center justify-between border-b py-2"
+              >
+                <div>
+                  <p className="font-medium">{skill.name}</p>
+                  <p className="text-sm text-gray-500">{skill.level}%</p>
                 </div>
-              ))}
-            </div>
+                <div className="flex space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => handleEdit(skill)}
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    <FontAwesomeIcon icon={faEdit} aria-hidden />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(skill.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <FontAwesomeIcon icon={faTrash} aria-hidden />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </Modal>
   );
 }

@@ -11,9 +11,9 @@ Next.js 15 (App Router) + React 19 + TypeScript portfolio/CV app (GitHub user `A
 - `npm run lint` — `next lint` (flat config in `eslint.config.mjs`). Currently clean. `npm run lint:fix` autofixes.
 - `npm run format` — `prettier --write .` (repo-wide). `npm run format:check` to verify without writing. `.eslintignore` was deleted; its entries now live in the `ignores` array of `eslint.config.mjs`, so the old deprecation warning is gone.
 - `.prettierrc.json` is the single source of truth for style (double quotes, semicolons, `trailingComma: "all"`, width 80, LF) and loads `prettier-plugin-tailwindcss`, which also sorts Tailwind class names. Format-on-save is enabled via `.vscode/settings.json`.
-- **Pre-commit hook**: husky + lint-staged, wired by `.husky/pre-commit` → `npx lint-staged` (config lives in `package.json`). Staged `*.{js,jsx,ts,tsx,mjs,cjs}` run `prettier --write` then `eslint --fix --max-warnings=0`; `*.{json,jsonc,css,md,yml,yaml}` run Prettier only. Any error blocks the commit — bypass with `git commit --no-verify`. lint-staged stashes unstaged changes as a backup and reverts task edits if a task fails. Tests are deliberately **not** in the hook (`npm test` currently fails).
+- **Pre-commit hook**: husky + lint-staged, wired by `.husky/pre-commit` → `npx lint-staged` (config lives in `package.json`). Staged `*.{js,jsx,ts,tsx,mjs,cjs}` run `prettier --write` then `eslint --fix --max-warnings=0`; `*.{json,jsonc,css,md,yml,yaml}` run Prettier only. Any error blocks the commit — bypass with `git commit --no-verify`. lint-staged stashes unstaged changes as a backup and reverts task edits if a task fails. Tests are deliberately **not** in the hook (coverage is always collected, so they're slow; run them manually before committing).
 - `"formatter": true` in the root `opencode.json` makes OpenCode run Prettier on files after its own `write`/`edit`/`patch` tools change them (works because `prettier` is a `package.json` dependency). Disabled unless you're running OpenCode.
-- `npx tsc --noEmit` — typecheck. There is **no** npm script for this. Currently clean.
+- `npm run typecheck` — `tsc --noEmit`. Currently clean.
 - `npm run build` — `prisma generate && next build` (next build also typechecks).
 
 Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm test`.
@@ -37,6 +37,7 @@ Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm te
 
 - `app/layout.tsx` wraps every page in `components/Providers.tsx` (Redux store + next-themes `ThemeProvider` + `ThemeInitializer`) and renders `components/Panel.tsx`, the persistent slide-in nav.
 - Routes: `/` (home), `/portfolio` (main CV page, client component), `/projects/[name]` (server component that fetches a repo by name), plus the only API route `app/api/github-repos/route.ts`.
+- UI primitives live in `components/ui/`: `Modal` (portal + `role="dialog"`, focus trap, Escape, scroll lock, focus restore — shared by `LoginForm` and `SkillsForm`), `Button` (action) and `ButtonLink` (`next/link` styled as a button). The old `components/Button.tsx` mixed both concerns (a `<button>` that called `router.push`) and was split in the Phase-1 refactor — use `ButtonLink` for navigation, `Button` for actions.
 - Data flow: client component → Redux thunk (`store/skillsSlice.ts`, `store/authSlice.ts`) → **server action** in `lib/action.ts` (`"use server"`, Zod-validated) → Prisma singleton `lib/db.ts`.
 - `store/store.ts` registers only `skills` and `auth`. `store/themeSlice.ts` exists but is **not** in the reducer map — leftover; theming is handled by next-themes, don't wire state to it.
 - `/api/github-repos` fetches `api.github.com/users/Alanmad06/repos` and keeps only repos whose description matches the `Tipo | Tecnologías | Descripción` regex, then pulls the image from the repo README. New portfolio entries are created by formatting GitHub repo descriptions, not by editing code.
@@ -47,3 +48,4 @@ Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm te
 
 - Tailwind **v4**, CSS-first: `app/globals.css` has `@import "tailwindcss"`, `@plugin 'tailwind-scrollbar'`, an `@theme` block, and `.light` / `.dark` CSS-variable sets. `tailwind.config.js` is **not loaded** (no `@config` directive anywhere) — edits there have no effect.
 - Theme is `class`-based (next-themes `attribute="class"`); `ThemeInitializer` reads `localStorage.theme`, defaulting to `dark`. Most theming flows through the CSS variables, not `dark:` variants.
+- v4 removed `bg-opacity-*`: hover opacity is `bg-color/80`-style (e.g. `hover:bg-[#26C17E]/90`). The dead v3 leftovers (`bg-opacity-*`, `font-sm`, bare `xl`, `prose` without `@tailwindcss/typography`, typo `text-foregroundk`) were cleaned up in the Phase-1 refactor — don't reintroduce them. `border-1` **is** valid in v4 (dynamic numeric utilities); a full-repo audit against compiled CSS is the only way to tell dead classes from real ones.

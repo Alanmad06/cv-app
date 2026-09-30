@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "./Button";
+import ButtonLink from "./ui/ButtonLink";
 
 export default function PhotoBox({
   name,
@@ -34,16 +34,15 @@ export default function PhotoBox({
       <div
         className={`${!big && "hidden"} z-1 flex flex-col items-center justify-center`}
       >
-        <h3 className="xl text-center font-sans font-semibold">{title}</h3>
+        <h3 className="text-center font-sans font-semibold">{title}</h3>
         <p className="py-2 text-center font-sans text-base font-normal">
           {description}
         </p>
         {big && (
-          <Button
-            icon=""
+          <ButtonLink
+            href="/portfolio"
             text="Know More"
             className="bg-blue-500 hover:scale-105 hover:bg-blue-700"
-            link="portfolio"
           />
         )}
       </div>

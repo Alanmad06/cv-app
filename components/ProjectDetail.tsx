@@ -100,7 +100,7 @@ export default function ProjectDetail({
 
       {readmeImages.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-foregroundk mb-4 text-2xl font-bold">
+          <h2 className="text-foreground mb-4 text-2xl font-bold">
             Project Images
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -124,7 +124,7 @@ export default function ProjectDetail({
       {readmeContent && (
         <div className="text-foreground mb-6">
           <h2 className="mb-4 text-2xl font-bold">README</h2>
-          <div className="prose max-w-none">
+          <div>
             <pre className="rounded-lg bg-[#313131] p-4 whitespace-pre-wrap">
               {readmeContent}
             </pre>

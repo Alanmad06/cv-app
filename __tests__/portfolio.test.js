@@ -42,7 +42,7 @@ describe("Portfolio", () => {
     renderWithProviders(<SkillsContainer id="1" />);
     const button = screen.getByRole("button", { name: "Login" });
     fireEvent(button, new MouseEvent("click", { bubbles: true }));
-    const buttonClose = screen.getByTestId("close");
+    const buttonClose = screen.getByRole("button", { name: "Cerrar" });
     fireEvent(buttonClose, new MouseEvent("click", { bubbles: true }));
     expect(buttonClose).not.toBeInTheDocument();
   });

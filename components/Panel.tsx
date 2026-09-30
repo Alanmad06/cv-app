@@ -1,6 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "./Button";
+import ButtonLink from "./ui/ButtonLink";
 import Navigation from "./Navigation";
 import PhotoBox from "./PhotoBox";
 import {
@@ -16,7 +16,7 @@ export default function Panel() {
   return (
     <div className="relative text-white">
       {/* Hamburger menu button */}
-      <label className="text-foreground hover:bg-opacity-80 fixed top-[1%] left-[1%] z-50 cursor-pointer rounded-md p-2 transition-all">
+      <label className="text-foreground fixed top-[1%] left-[1%] z-50 cursor-pointer rounded-md p-2 transition-all">
         <input
           type="checkbox"
           className="hidden"
@@ -25,7 +25,7 @@ export default function Panel() {
         />
         <FontAwesomeIcon
           icon={isPanelVisible ? faXmark : faBars}
-          className={`text-xl`}
+          className="text-xl"
         />
       </label>
 
@@ -46,11 +46,11 @@ export default function Panel() {
             />
             <Navigation />
           </div>
-          <Button
+          <ButtonLink
+            href="/portfolio"
             icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
             text="Go Home"
             className="bg-[#10141b] text-white"
-            link="/portfolio"
           />
         </div>
       </div>
