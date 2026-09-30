@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Next.js 15 (App Router) + React 19 + TypeScript portfolio/CV app (GitHub user `Alanmad06`). Single package — no workspaces, no CI, no pre-commit hooks. Formatting is Prettier (`.prettierrc.json`, `.prettierignore`), linting is ESLint (flat config in `eslint.config.mjs`, ended with `eslint-config-prettier`).
+Next.js 15 (App Router) + React 19 + TypeScript portfolio/CV app (GitHub user `Alanmad06`). Single package — no workspaces, no CI. Style is enforced at three points: Prettier config, editor format-on-save, and a husky pre-commit hook. Formatting is Prettier (`.prettierrc.json`, `.prettierignore`), linting is ESLint (flat config in `eslint.config.mjs`, ended with `eslint-config-prettier`).
 
 ## Commands
 
@@ -11,6 +11,8 @@ Next.js 15 (App Router) + React 19 + TypeScript portfolio/CV app (GitHub user `A
 - `npm run lint` — `next lint` (flat config in `eslint.config.mjs`). Currently clean. `npm run lint:fix` autofixes.
 - `npm run format` — `prettier --write .` (repo-wide). `npm run format:check` to verify without writing. `.eslintignore` was deleted; its entries now live in the `ignores` array of `eslint.config.mjs`, so the old deprecation warning is gone.
 - `.prettierrc.json` is the single source of truth for style (double quotes, semicolons, `trailingComma: "all"`, width 80, LF) and loads `prettier-plugin-tailwindcss`, which also sorts Tailwind class names. Format-on-save is enabled via `.vscode/settings.json`.
+- **Pre-commit hook**: husky + lint-staged, wired by `.husky/pre-commit` → `npx lint-staged` (config lives in `package.json`). Staged `*.{js,jsx,ts,tsx,mjs,cjs}` run `prettier --write` then `eslint --fix --max-warnings=0`; `*.{json,jsonc,css,md,yml,yaml}` run Prettier only. Any error blocks the commit — bypass with `git commit --no-verify`. lint-staged stashes unstaged changes as a backup and reverts task edits if a task fails. Tests are deliberately **not** in the hook (`npm test` currently fails).
+- `"formatter": true` in the root `opencode.json` makes OpenCode run Prettier on files after its own `write`/`edit`/`patch` tools change them (works because `prettier` is a `package.json` dependency). Disabled unless you're running OpenCode.
 - `npx tsc --noEmit` — typecheck. There is **no** npm script for this. Currently clean.
 - `npm run build` — `prisma generate && next build` (next build also typechecks).
 
