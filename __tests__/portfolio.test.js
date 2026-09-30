@@ -7,6 +7,17 @@ import { setUpStore } from "@/store/store";
 
 import * as actions from "@/lib/action";
 
+// Debe ir en el ámbito del módulo: `jest.mock` dentro de `it()` no se eleva
+// (hoisting) y su factory no ve los imports del archivo.
+jest.mock("@/lib/action", () => ({
+  fetchSkills: jest.fn(() => Promise.resolve({ skills: [] })),
+  addSkill: jest.fn(() => Promise.resolve({})),
+  updateSkill: jest.fn(() => Promise.resolve({})),
+  deleteSkill: jest.fn(() => Promise.resolve({})),
+  login: jest.fn(() => Promise.resolve({ access: false })),
+  fetchProject: jest.fn(() => Promise.resolve({ data: null })),
+}));
+
 describe("Portfolio", () => {
   it("Render Skills Component", () => {
     renderWithProviders(<SkillsContainer id="1" />);
@@ -48,12 +59,8 @@ describe("Portfolio", () => {
   });
 
   it("async Skills should appear in document", async () => {
-    jest.mock("@/lib/action", () => ({
-      fetchSkills: jest.fn(), // Se puede redefinir luego
-    }));
-
     renderWithProviders(<SkillsContainer id="1" />);
 
-    expect(fetchSkills).toHaveBeenCalledTimes(1);
+    expect(actions.fetchSkills).toHaveBeenCalledTimes(1);
   });
 });

@@ -11,6 +11,13 @@ const createJestConfig = nextJest({
   dir: "./",
 });
 const config: Config = {
+  // Resolves the `@/*` path alias from tsconfig.json. SWC rewrites imports
+  // during transform, but not the string literal passed to `jest.mock()`,
+  // which Jest resolves itself.
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+  },
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -164,7 +171,9 @@ const config: Config = {
 
   // Options that will be passed to the testEnvironment
   testEnvironmentOptions: {
-    customExportConditions: [""],
+    // jsdom's default condition. `""` resolves to nothing, which breaks
+    // package `exports` maps (e.g. `@prisma/client`) with "Cannot find module".
+    customExportConditions: ["browser"],
   },
 
   // Adds a location field to test results

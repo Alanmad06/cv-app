@@ -24,11 +24,12 @@ Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm te
 - **Stop `npm run dev` before `npm run build`.** The dev server keeps `node_modules\.prisma\client\query_engine-windows.dll.node` open, so `prisma generate` fails with `EPERM: operation not permitted, rename ... .tmp -> query_engine-windows.dll.node`. The project also lives under OneDrive, which can add its own file locks.
 - Prisma schema: `prisma/schema.prisma` (single `Skill` model). Migrations live in `prisma/migrations/` — change schema, then `npx prisma migrate dev`.
 
-## Testing quirks (tests currently fail — read before touching Jest)
+## Testing
 
-- `jest.config.ts` sets `testEnvironmentOptions.customExportConditions: ['']`. That makes Jest unable to resolve `@prisma/client` (suite dies with `Cannot find module '@prisma/client' from 'lib/db.ts'`): Prisma's `exports` `require` branch has no `default` fallback, so `['']` resolves to nothing. `['browser']` (jsdom's default) works. This is the cause of the current red `npm test`.
-- With the `browser` condition, server actions load Prisma's browser build and throw _"PrismaClient is unable to run in this browser environment"_. The Redux thunks catch it, so tests still pass — expected console noise, don't chase it.
-- The last test, `async Skills should appear in document`, fails on its own: it calls `jest.mock()` inside `it()` (never hoisted) and `fetchSkills` isn't in scope.
+- `jest.config.ts` sets `customExportConditions: ["browser"]` (jsdom's default). An earlier `[""]` made Jest unable to resolve `@prisma/client` — Prisma's `exports` `require` branch has no `default` fallback, so `[""]` resolved to nothing and the suite died with `Cannot find module '@prisma/client' from 'lib/db.ts'`. Keep it `["browser"]`.
+- `moduleNameMapper: { "^@/(.*)$": "<rootDir>/$1" }` resolves the tsconfig `@/*` alias. SWC rewrites `import` statements during transform, but **not** the string literal inside `jest.mock("@/lib/action")`, which Jest resolves itself — so `jest.mock` needs the mapper.
+- Mock `@/lib/action` at module scope (see `__tests__/portfolio.test.js`) so thunks don't reach Prisma. Calling `jest.mock()` inside `it()` is never hoisted and its factory can't see file imports.
+- Without that mock, server actions load Prisma's browser build and throw _"PrismaClient is unable to run in this browser environment"_. The Redux thunks catch it, so tests still pass — expected console noise, don't chase it. `act(...)` warnings from async thunk resolution are also expected.
 - MSW scaffolding exists (`mocks/`, `app/mocks.ts`, `jest.setup.ts`) but is **dormant**: the `server.listen()` wiring in `jest.setup.ts` is commented out and `initMocks()` is never imported. `mocks/README.md` claims it's integrated — trust the code, not that README.
 - Test helper: `lib/tests/renderWithProviders.tsx` wraps a component in the Redux `Provider`; `setUpStore(preloadedState)` in `store/store.ts` creates an isolated store for assertions.
 
