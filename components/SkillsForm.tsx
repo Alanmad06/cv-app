@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { addSkill, updateSkill, deleteSkill } from "@/store/skillsSlice";
@@ -9,22 +9,20 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "./ui/Modal";
 import Button from "./ui/Button";
 
-export default function SkillsForm() {
+interface SkillsFormProps {
+  /** Visibilidad del modal, controlada por el padre. */
+  open: boolean;
+  onClose: () => void;
+}
+
+export default function SkillsForm({ open, onClose }: SkillsFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { skills, loading } = useSelector((state: RootState) => state.skills);
 
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [formMode, setFormMode] = useState<"add" | "edit">("add");
   const [currentSkill, setCurrentSkill] = useState<Skill | null>(null);
   const [skillName, setSkillName] = useState("");
   const [skillLevel, setSkillLevel] = useState(50);
-
-  // Escuchar el evento personalizado para abrir el formulario
-  useEffect(() => {
-    const handleOpenForm = () => setIsFormVisible(true);
-    document.addEventListener("openSkillsForm", handleOpenForm);
-    return () => document.removeEventListener("openSkillsForm", handleOpenForm);
-  }, []);
 
   const resetForm = () => {
     setSkillName("");
@@ -64,8 +62,8 @@ export default function SkillsForm() {
 
   return (
     <Modal
-      open={isFormVisible}
-      onClose={() => setIsFormVisible(false)}
+      open={open}
+      onClose={onClose}
       title={formMode === "add" ? "Add New Skill" : "Edit Skill"}
       panelClassName="bg-background"
       closeClassName="text-foreground hover:text-gray-700"

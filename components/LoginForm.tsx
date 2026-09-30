@@ -1,25 +1,23 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { login } from "@/store/authSlice";
 import Modal from "./ui/Modal";
 import Button from "./ui/Button";
 
-export default function LoginForm() {
+interface LoginFormProps {
+  /** Visibilidad del modal, controlada por el padre. */
+  open: boolean;
+  onClose: () => void;
+}
+
+export default function LoginForm({ open, onClose }: LoginFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.auth);
 
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  // Escuchar el evento personalizado para abrir el formulario
-  useEffect(() => {
-    const handleOpenForm = () => setIsFormVisible(true);
-    document.addEventListener("openLoginForm", handleOpenForm);
-    return () => document.removeEventListener("openLoginForm", handleOpenForm);
-  }, []);
 
   const resetForm = () => {
     setUsername("");
@@ -33,11 +31,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Modal
-      open={isFormVisible}
-      onClose={() => setIsFormVisible(false)}
-      title="Iniciar Sesión"
-    >
+    <Modal open={open} onClose={onClose} title="Iniciar Sesión">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="mb-1 block text-sm font-medium text-gray-700">

@@ -41,7 +41,14 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
 };
 
 // Componente principal de Skills
-export default function Skills() {
+interface SkillsProps {
+  /** Abre el modal de login (estado en el padre, no eventos globales). */
+  onOpenLogin: () => void;
+  /** Abre el modal de edición de skills (estado en el padre). */
+  onOpenSkillsForm: () => void;
+}
+
+export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { skills, loading } = useSelector((state: RootState) => state.skills);
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -61,9 +68,7 @@ export default function Skills() {
             <>
               <Button
                 className="rounded-sm bg-[#222935] px-3 py-1 text-white hover:bg-[#222935]/80"
-                onClick={() =>
-                  document.dispatchEvent(new CustomEvent("openSkillsForm"))
-                }
+                onClick={onOpenSkillsForm}
               >
                 Open edit
               </Button>
@@ -77,9 +82,7 @@ export default function Skills() {
           ) : (
             <Button
               className="rounded-sm bg-[#26C17E] px-3 py-1 text-white hover:bg-[#26C17E]/80"
-              onClick={() =>
-                document.dispatchEvent(new CustomEvent("openLoginForm"))
-              }
+              onClick={onOpenLogin}
             >
               Login
             </Button>
