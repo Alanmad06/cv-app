@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import Address from "@/components/Address";
 import { fetchPortfolioProjects } from "@/lib/github";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Portfolio" };
 
 /** La página completa se regenera como mucho cada hora (ISR). */
 export const revalidate = 3600;

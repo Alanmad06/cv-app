@@ -7,7 +7,7 @@ export default function Home() {
       <div className="absolute z-0 flex h-[100dvh] w-[100dvw] items-center justify-center overflow-hidden">
         <Image
           src="/assets/image.png"
-          alt="SVG Image"
+          alt=""
           fill
           className="object-cover"
           priority

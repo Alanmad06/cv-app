@@ -27,12 +27,21 @@ const SkillSkeleton = () => {
 const SkillBar = ({ skill }: { skill: Skill }) => {
   return (
     <div className="mb-4">
-      <div className="mb-1 inline-block rounded-sm bg-[#26C17E] px-2 py-1 text-white">
+      <div className="bg-main mb-1 inline-block rounded-sm px-2 py-1 text-white dark:text-gray-900">
         {skill.name}
       </div>
-      <div className="relative h-6 w-full rounded-sm bg-gray-200">
+      {/* El ancho del relleno no es texto: progressbar lo hace legible para
+          lectores de pantalla (valor, mínimo, máximo y nombre). */}
+      <div
+        className="relative h-6 w-full rounded-sm bg-gray-200 dark:bg-gray-600"
+        role="progressbar"
+        aria-label={skill.name}
+        aria-valuenow={skill.level}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
         <div
-          className="h-6 rounded-sm bg-[#26C17E]"
+          className="bg-main h-6 rounded-sm"
           style={{ width: `${skill.level}%` }}
         ></div>
       </div>
@@ -81,7 +90,7 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
             </>
           ) : (
             <Button
-              className="rounded-sm bg-[#26C17E] px-3 py-1 text-white hover:bg-[#26C17E]/80"
+              className="bg-main hover:bg-main/80 rounded-sm px-3 py-1 text-white dark:text-gray-900"
               onClick={onOpenLogin}
             >
               Login
@@ -98,7 +107,7 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
             {skills.length > 0 &&
               skills.map((skill) => <SkillBar key={skill.id} skill={skill} />)}
           </div>
-          <div className="mt-2 flex justify-between text-sm text-gray-600">
+          <div className="mt-2 flex justify-between text-sm text-gray-600 dark:text-gray-300">
             <span>Beginner</span>
             <span>Proficient</span>
             <span>Expert</span>

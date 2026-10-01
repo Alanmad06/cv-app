@@ -33,7 +33,16 @@ const ProjectItem = ({
       />
     </div>
     <div className="relative flex h-full flex-col items-start justify-between p-5 font-sans">
-      <h2 className="text-main font-bold">{project.title}</h2>
+      <h3 className="text-main font-bold">
+        {/* Equivalente por teclado del click en la tarjeta (el div con
+            onClick no es enfocable). stopPropagation evita navegar dos veces. */}
+        <Link
+          href={`/projects/${project.title}`}
+          onClick={(event) => event.stopPropagation()}
+        >
+          {project.title}
+        </Link>
+      </h3>
       <p className="py-2 text-start">{project.description}</p>
       <Link className="text-main text-sm underline" href={project.link}>
         View More
@@ -79,7 +88,11 @@ export default function Portfolio({
       </h2>
 
       {/* Botones de filtrado con estado activo */}
-      <div className="text-foreground mb-4 flex flex-wrap items-center gap-2 px-2">
+      <div
+        role="group"
+        aria-label="Filter projects by category"
+        className="text-foreground mb-4 flex flex-wrap items-center gap-2 px-2"
+      >
         {categories.map((category, index) => (
           <div key={`${index + category}`}>
             <button
@@ -89,7 +102,9 @@ export default function Portfolio({
             >
               {category}
             </button>
-            {index === categories.length - 1 ? "" : " /"}
+            {index === categories.length - 1 ? null : (
+              <span aria-hidden="true"> /</span>
+            )}
           </div>
         ))}
       </div>

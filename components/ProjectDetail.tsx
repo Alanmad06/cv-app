@@ -20,7 +20,7 @@ export default function ProjectDetail({
     <div className="bg-background text-foreground mx-auto max-w-4xl rounded-lg p-6 shadow-lg">
       <div className="mb-6">
         <h1 className="text-foreground mb-2 text-3xl font-bold">{name}</h1>
-        <p className="mb-4 text-gray-600">
+        <p className="mb-4 text-gray-600 dark:text-gray-300">
           {description || "No description available"}
         </p>
 

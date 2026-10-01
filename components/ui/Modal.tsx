@@ -27,6 +27,8 @@ interface ModalProps {
   closeClassName?: string;
   /** Accessible name of the close button. */
   closeLabel?: string;
+  /** Extra classes for the title (e.g. a fixed color on white panels). */
+  titleClassName?: string;
   children: ReactNode;
 }
 
@@ -37,6 +39,7 @@ export default function Modal({
   panelClassName = "bg-white",
   closeClassName = "text-gray-500 hover:text-gray-700",
   closeLabel = "Cerrar",
+  titleClassName = "text-main",
   children,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -124,7 +127,10 @@ export default function Modal({
         className={`w-full max-w-md rounded-md p-6 shadow-lg focus:outline-none ${panelClassName}`}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 id={titleId} className="text-main text-xl font-semibold">
+          <h2
+            id={titleId}
+            className={`text-xl font-semibold ${titleClassName}`}
+          >
             {title}
           </h2>
           <button

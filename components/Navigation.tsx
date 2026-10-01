@@ -40,12 +40,17 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="px-2">
+    <nav className="px-2" aria-label="Main">
       {items.map((item, index) => (
         <a
           key={index}
           href={item.url}
-          className="hover:text-main active:text-main flex w-[100%] flex-row items-center justify-center gap-2 py-4 hover:bg-gray-500 max-[700px]:min-w-[20vw] min-[700px]:justify-start min-[700px]:pl-1"
+          // El título es el nombre accesible en móvil, donde el texto está
+          // oculto con display:none (y por eso fuera del cálculo del nombre).
+          // El verde va hardcodeado: el panel siempre es azul marino, y
+          // `--main` en tema claro (verde oscuro) daría 2.94:1 sobre él.
+          aria-label={item.title}
+          className="flex w-[100%] flex-row items-center justify-center gap-2 py-4 hover:bg-gray-500 hover:text-[#26C17E] active:text-[#26C17E] max-[700px]:min-w-[20vw] min-[700px]:justify-start min-[700px]:pl-1"
         >
           <i>{item.icon}</i>
           <span className="px-4 max-[700px]:hidden">{item.title}</span>

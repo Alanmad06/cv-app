@@ -37,11 +37,11 @@ export default function Address({ id }: { id: string }) {
             {contact.icon}
             <div className="pl-2">
               {contact.tile ? (
-                <p className="font-sans text-white">{contact.tile}</p>
+                <p className="text-foreground font-sans">{contact.tile}</p>
               ) : (
                 ""
               )}
-              <p className="font-sans text-white">{contact.info}</p>
+              <p className="text-foreground font-sans">{contact.info}</p>
             </div>
           </div>
         </div>

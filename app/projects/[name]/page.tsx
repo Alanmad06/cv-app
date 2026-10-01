@@ -3,9 +3,19 @@ import { Suspense } from "react";
 import ProjectDetail from "@/components/ProjectDetail";
 import ProjectSkeleton from "@/components/ProjectSkeleton";
 import { ProjectData } from "@/interfaces/repos";
+import type { Metadata } from "next";
 
 /** Las páginas de proyecto se regeneran como mucho cada hora (ISR). */
 export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}): Promise<Metadata> {
+  const { name } = await params;
+  return { title: name };
+}
 
 export default async function Page({
   params,

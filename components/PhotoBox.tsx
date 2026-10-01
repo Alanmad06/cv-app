@@ -16,6 +16,9 @@ export default function PhotoBox({
   big?: boolean;
   className?: string;
 }) {
+  // En la portada (big) es el encabezado principal de la página.
+  const Title = big ? "h1" : "h2";
+
   return (
     <section
       className={`flex flex-col items-center justify-center gap-2 ${big ? "max-[25vw]:m-2 max-[25vw]:p-5 min-[25vw]:w-full min-[30vw]:h-[100vh]" : "mb-6"} ${className}`}
@@ -28,9 +31,9 @@ export default function PhotoBox({
           className="rounded-full object-cover"
         />
       </div>
-      <h2 className="z-1 text-center font-sans text-xl font-bold max-[300px]:hidden">
+      <Title className="z-1 text-center font-sans text-xl font-bold max-[300px]:hidden">
         {name}
-      </h2>
+      </Title>
       <div
         className={`${!big && "hidden"} z-1 flex flex-col items-center justify-center`}
       >

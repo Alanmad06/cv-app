@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
 
+/* El tema se controla con la clase `.dark` (next-themes), no con la
+   preferencia del SO: sin esta variante, los `dark:` seguían al sistema
+   mientras la app seguía a la clase. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-main: rgba(var(--main));
   --color-background: rgba(var(--background));
@@ -14,7 +19,10 @@
   --foreground: 6, 6, 6;
   --scrollbar: 243, 243, 243;
 
-  --main: 38, 193, 126;
+  /* Verde oscuro: el verde brillante (#26C17E) da 1.67:1 sobre este fondo
+     (y 2.34:1 en texto blanco sobre verde), muy por debajo de WCAG AA.
+     Este tono mantiene el acento y pasa 4.5:1 como texto y 3:1 como anillo. */
+  --main: 15, 107, 69;
   --font-sans: var(--font-open-sans), sans-serif;
 }
 
@@ -36,4 +44,25 @@ body {
 }
 html {
   scroll-behavior: smooth;
+}
+
+/* El slider de Skills usa `appearance:none` (clase Tailwind), que elimina el
+   pulgar nativo: sin esto no hay indicador visible de la posición. */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: rgb(var(--main));
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  border-radius: 9999px;
+  background: rgb(var(--main));
+  cursor: pointer;
 }

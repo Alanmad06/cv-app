@@ -18,10 +18,10 @@ export default function Timeline({
         {timeline.map((project: Timeline, index) => (
           <div key={index} className="text-foreground m-2 flex flex-row gap-2">
             <div className="before:bg-main relative flex-1/10 text-center before:absolute before:top-[70%] before:left-[50%] before:h-[70%] before:w-1 before:translate-x-[-50%] before:translate-y-[-50%] before:content-['']">
-              <h2>{project.date}</h2>
+              <h3>{project.date}</h3>
             </div>
             <div className="relative min-h-[80px] flex-9/10 bg-[#eeeeee] p-2 text-black before:absolute before:top-[3px] before:left-[-9px] before:h-0 before:w-0 before:border-t-[10px] before:border-r-[10px] before:border-b-[10px] before:border-t-transparent before:border-r-[#eeeeee] before:border-b-transparent before:content-['']">
-              <h2 className="py-1 font-bold">{project.title}</h2>
+              <h3 className="py-1 font-bold">{project.title}</h3>
               <p>{project.text}</p>
             </div>
           </div>

@@ -71,32 +71,40 @@ export default function SkillsForm({ open, onClose }: SkillsFormProps) {
     >
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="text-foreground mb-1 block text-sm font-medium">
+          <label
+            htmlFor="skill-name"
+            className="text-foreground mb-1 block text-sm font-medium"
+          >
             Skill name
           </label>
           <input
+            id="skill-name"
             type="text"
             value={skillName}
             onChange={(e) => setSkillName(e.target.value)}
-            className="text-foreground focus:ring-main w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-1 focus:outline-none"
+            className="text-foreground focus:ring-main w-full rounded-md border border-gray-500 px-3 py-2 focus:ring-1 focus:outline-none dark:border-gray-400"
             placeholder="Enter skill name"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="text-foreground mb-1 block text-sm font-medium">
+          <label
+            htmlFor="skill-level"
+            className="text-foreground mb-1 block text-sm font-medium"
+          >
             Skill range: {skillLevel}%
           </label>
           <input
+            id="skill-level"
             type="range"
             min="0"
             max="100"
             value={skillLevel}
             onChange={(e) => setSkillLevel(parseInt(e.target.value))}
-            className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
+            className="focus:ring-main h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 focus:ring-2 focus:outline-none dark:bg-gray-600"
           />
-          <div className="mt-1 flex justify-between text-xs text-gray-500">
+          <div className="mt-1 flex justify-between text-xs text-gray-600 dark:text-gray-300">
             <span>Beginner</span>
             <span>Proficient</span>
             <span>Expert</span>
@@ -107,7 +115,7 @@ export default function SkillsForm({ open, onClose }: SkillsFormProps) {
         <Button
           type="submit"
           disabled={loading}
-          className="bg-main hover:bg-main/90 w-full rounded-md py-2 text-white disabled:opacity-50"
+          className="bg-main hover:bg-main/90 w-full rounded-md py-2 text-white disabled:opacity-50 dark:text-gray-900"
         >
           {loading
             ? "Processing..."
@@ -128,20 +136,24 @@ export default function SkillsForm({ open, onClose }: SkillsFormProps) {
               >
                 <div>
                   <p className="font-medium">{skill.name}</p>
-                  <p className="text-sm text-gray-500">{skill.level}%</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    {skill.level}%
+                  </p>
                 </div>
                 <div className="flex space-x-2">
                   <button
                     type="button"
                     onClick={() => handleEdit(skill)}
-                    className="text-blue-500 hover:text-blue-700"
+                    aria-label={`Edit ${skill.name}`}
+                    className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                   >
                     <FontAwesomeIcon icon={faEdit} aria-hidden />
                   </button>
                   <button
                     type="button"
                     onClick={() => handleDelete(skill.id)}
-                    className="text-red-500 hover:text-red-700"
+                    aria-label={`Delete ${skill.name}`}
+                    className="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
                   >
                     <FontAwesomeIcon icon={faTrash} aria-hidden />
                   </button>
