@@ -61,8 +61,6 @@ export default function Panel() {
           />
         </div>
       </div>
-
-      {/* Overlay that appears when menu is open */}
     </div>
   );
 }

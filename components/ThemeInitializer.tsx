@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-import {} from "@/store/themeSlice";
 import { useTheme } from "next-themes";
 
 export default function ThemeInitializer() {

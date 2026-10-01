@@ -42,12 +42,6 @@ export default function ToggleButton({
           {theme === "dark" ? iconFirst : iconLast}
         </div>
       </button>
-      <input
-        type="checkbox"
-        checked={theme === "dark"}
-        onChange={handleToggle}
-        className="hidden"
-      />
     </div>
   );
 }
