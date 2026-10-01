@@ -1,5 +1,3 @@
-"use client";
-
 import Box from "@/components/Box";
 
 import Info from "@/components/Info";
@@ -11,8 +9,14 @@ import ToggleButton from "@/components/ToggleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import Address from "@/components/Address";
+import { fetchPortfolioProjects } from "@/lib/github";
 
-export default function Portfolio() {
+/** La página completa se regenera como mucho cada hora (ISR). */
+export const revalidate = 3600;
+
+export default async function Portfolio() {
+  const projects = await fetchPortfolioProjects();
+
   return (
     <div className="bg-background relative px-4 pt-10 pb-10">
       <div className="absolute top-2 right-2">
@@ -37,7 +41,7 @@ export default function Portfolio() {
        */}
       {/* <Feedback feedback={[{ feedback: ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor', reporter: { photoUrl: './user.jpg', name: 'John Doe', citeUrl: 'https://www.citeexample.com' } }, { feedback: ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor', reporter: { photoUrl: './user.jpg', name: 'John Doe', citeUrl: 'https://www.citeexample.com' } }]} />
        */}
-      <PortfolioC id="portfolio" />
+      <PortfolioC id="portfolio" projects={projects} />
       <Info
         id="Languages"
         info="Languages : Español - Native | English - B2 (Upper - Intermediate)"

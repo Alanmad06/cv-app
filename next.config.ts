@@ -23,6 +23,19 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**/*",
       },
+      // Imágenes del README de los proyectos (ProjectDetail)
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/**/*",
+      },
+      {
+        protocol: "https",
+        hostname: "user-images.githubusercontent.com",
+        port: "",
+        pathname: "/**/*",
+      },
     ],
   },
 };

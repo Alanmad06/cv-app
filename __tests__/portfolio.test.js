@@ -18,9 +18,6 @@ jest.mock("@/lib/actions/skills", () => ({
 jest.mock("@/lib/actions/auth", () => ({
   login: jest.fn(() => Promise.resolve({ access: false })),
 }));
-jest.mock("@/lib/actions/github", () => ({
-  fetchProject: jest.fn(() => Promise.resolve({ data: null })),
-}));
 
 describe("Portfolio", () => {
   it("Render Skills Component", () => {

@@ -19,3 +19,9 @@ export interface ProjectData {
   data?: Repository;
   error?: unknown;
 }
+
+/** Resultado de leer el README: primer bloque en tabla + imágenes markdown. */
+export interface Readme {
+  content: string;
+  images: string[];
+}

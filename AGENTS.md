@@ -36,12 +36,12 @@ Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm te
 ## Architecture
 
 - `app/layout.tsx` wraps every page in `components/Providers.tsx` (Redux store + next-themes `ThemeProvider` + `ThemeInitializer`) and renders `components/Panel.tsx`, the persistent slide-in nav.
-- Routes: `/` (home), `/portfolio` (main CV page, client component), `/projects/[name]` (server component that fetches a repo by name), plus the only API route `app/api/github-repos/route.ts`.
+- Routes: `/` (home), `/portfolio` (server component — fetches the project list with `revalidate = 3600`), `/projects/[name]` (server component that fetches a repo **and its README**). The `/api/github-repos` route was deleted in the Phase-4 refactor: GitHub data is fetched server-side in `lib/github.ts`, never from the browser.
 - UI primitives live in `components/ui/`: `Modal` (portal + `role="dialog"`, focus trap, Escape, scroll lock, focus restore — shared by `LoginForm` and `SkillsForm`), `Button` (action) and `ButtonLink` (`next/link` styled as a button). The old `components/Button.tsx` mixed both concerns (a `<button>` that called `router.push`) and was split in the Phase-1 refactor — use `ButtonLink` for navigation, `Button` for actions.
-- Data flow: client component → Redux thunk (`store/skillsSlice.ts`, `store/authSlice.ts`) → **server actions** in `lib/actions/{skills,auth,github}.ts` (`"use server"`, Zod-validated; `lib/action.ts` was split by domain in the Phase-3 refactor) → Prisma singleton `lib/db.ts`.
+- Data flow: client component → Redux thunk (`store/skillsSlice.ts`, `store/authSlice.ts`) → **server actions** in `lib/actions/{skills,auth}.ts` (`"use server"`, Zod-validated) → Prisma singleton `lib/db.ts`. GitHub reads are _not_ actions: `lib/github.ts` holds server-only loaders (`fetchPortfolioProjects`, `fetchProject`, `fetchReadme`) with `next: { revalidate: 3600 }`.
 - `store/store.ts` registers only `skills` and `auth`. `store/themeSlice.ts` exists but is **not** in the reducer map — leftover; theming is handled by next-themes, don't wire state to it.
-- `/api/github-repos` fetches `api.github.com/users/Alanmad06/repos` and keeps only repos whose description matches the `Tipo | Tecnologías | Descripción` regex, then pulls the image from the repo README. New portfolio entries are created by formatting GitHub repo descriptions, not by editing code.
-- `next.config.ts` `images.remotePatterns` whitelists only GitHub/avatars hosts — `next/image` rejects any other remote host.
+- `lib/github.ts` fetches `api.github.com/users/Alanmad06/repos` and keeps only repos whose description matches the `Tipo | Tecnologías | Descripción` regex, then pulls the image from the repo README. New portfolio entries are created by formatting GitHub repo descriptions, not by editing code.
+- `next.config.ts` `images.remotePatterns` whitelists GitHub/avatars hosts **plus `raw.githubusercontent.com` and `user-images.githubusercontent.com`** (README project images) — `next/image` rejects any other remote host.
 - Path alias `@/*` → repo root (`tsconfig.json`). Shared TS types live in `interfaces/`.
 
 ## Styling
