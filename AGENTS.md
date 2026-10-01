@@ -16,7 +16,7 @@ Next.js 15 (App Router) + React 19 + TypeScript portfolio/CV app (GitHub user `A
 - `npm run typecheck` — `tsc --noEmit`. Currently clean.
 - `npm run build` — `prisma generate && next build` (next build also typechecks).
 
-Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm test`.
+Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm test`. When touching routing, server rendering or CSS, also run `npm run build` (stop `npm run dev` first — see gotchas).
 
 ## Build / env gotchas
 
@@ -50,3 +50,10 @@ Verify with: `npm run lint && npx tsc --noEmit && npm run format:check && npm te
 - `dark:` follows the **class**, not the OS preference, thanks to `@custom-variant dark (&:where(.dark, .dark *))` in `globals.css` — without it the `dark:` utilities disagreed with next-themes' `attribute="class"`. Theme-dependent colors usually come from the CSS variables (`--main`, `--background`, `--foreground`); use `dark:` only for surfaces whose color is fixed per theme.
 - Theme is `class`-based (next-themes `attribute="class"`); `ThemeInitializer` reads `localStorage.theme`, defaulting to `dark`. Most theming flows through the CSS variables, not `dark:` variants.
 - v4 removed `bg-opacity-*`: hover opacity is `bg-color/80`-style (e.g. `hover:bg-[#26C17E]/90`). The dead v3 leftovers (`bg-opacity-*`, `font-sm`, bare `xl`, `prose` without `@tailwindcss/typography`, typo `text-foregroundk`) were cleaned up in the Phase-1 refactor — don't reintroduce them. `border-1` **is** valid in v4 (dynamic numeric utilities); a full-repo audit against compiled CSS is the only way to tell dead classes from real ones.
+
+## Accessibility (Phase 5)
+
+- Keyboard reach: `Panel`'s hamburger is an `sr-only` checkbox + `<label>` with `aria-label` (never `hidden` — `display:none` removes it from the tab order); the closed panel carries `inert`/`aria-hidden` so its links can't receive focus while off-screen.
+- Names/labels: FontAwesome icons are `aria-hidden` (Phase 1), so icon-only controls must declare their own `aria-label`; form fields use visible `<label htmlFor>` pairs; async errors (login) render inside `role="alert"`; the skills progress bars expose `role="progressbar"` + `aria-valuenow/min/max`.
+- Headings: `Box` and `ProjectDetail` render the page `<h1>` (on `/`, `PhotoBox` renders `<h1>` when `big`, else `<h2>`); section titles are `<h2>`; card/item titles (`Portfolio` cards, `Timeline` entries, `SkillsForm` modal) are `<h3>`; `Modal`'s own title is an `<h2>`.
+- Contrast (WCAG 1.4.3): `.light { --main: 15, 107, 69 }` exists because the bright green `#26C17E` was 1.67:1 on the light background — don't lighten it without re-checking; accent-on-surface pairs use `bg-main` with `text-white dark:text-gray-900`. Known residual: the skills range slider's dark-mode thumb/track pair is ~1.96:1 (below the 3:1 of 1.4.11).
