@@ -2,7 +2,13 @@
 
 export default function ProjectSkeleton() {
   return (
-    <div className="mx-auto max-w-4xl animate-pulse rounded-lg bg-white p-6 shadow-lg">
+    <div
+      className="mx-auto max-w-4xl animate-pulse rounded-lg bg-white p-6 shadow-lg"
+      role="status"
+    >
+      {/* Anuncia la carga una sola vez; el resto es decorativo y los
+          lectores de pantalla lo ignoran (bloques vacíos, sin texto). */}
+      <span className="sr-only">Loading project</span>
       {/* Título y descripción */}
       <div className="mb-6">
         <div className="mb-4 h-8 w-3/4 rounded bg-gray-200"></div>

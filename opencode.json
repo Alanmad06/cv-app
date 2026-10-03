@@ -1,4 +1,28 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "formatter": true
+  "formatter": true,
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@latest",
+          "--executable-path",
+          "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        ]
+      },
+      "devtools": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "chrome-devtools-mcp@latest",
+          "--executablePath",
+          "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        ]
+      }
+    }
+  }
 }

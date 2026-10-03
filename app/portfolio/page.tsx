@@ -2,6 +2,7 @@ import Box from "@/components/Box";
 
 import Info from "@/components/Info";
 import PortfolioC from "@/components/Portfolio";
+import PortfolioSkeleton from "@/components/PortfolioSkeleton";
 import Timeline from "@/components/Timeline";
 import SkillsContainer from "@/components/SkillsContainer";
 
@@ -10,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import Address from "@/components/Address";
 import { fetchPortfolioProjects } from "@/lib/github";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Portfolio" };
@@ -17,9 +19,7 @@ export const metadata: Metadata = { title: "Portfolio" };
 /** La página completa se regenera como mucho cada hora (ISR). */
 export const revalidate = 3600;
 
-export default async function Portfolio() {
-  const projects = await fetchPortfolioProjects();
-
+export default function Portfolio() {
   return (
     <div className="bg-background relative px-4 pt-10 pb-10">
       <div className="absolute top-2 right-2">
@@ -40,7 +40,12 @@ export default async function Portfolio() {
         this one was a part of a course but still usefull ;)"
       />
 
-      <PortfolioC id="portfolio" projects={projects} />
+      {/* El fetch vive en el child, no en esta función: así el shell de la
+          página (Who I am, Skills, Timeline, Contacts) se pinta sin esperar
+          a GitHub y solo la rejilla muestra el skeleton. */}
+      <Suspense fallback={<PortfolioSkeleton />}>
+        <PortfolioProjects />
+      </Suspense>
       <Info
         id="Languages"
         info="Languages : Español - Native | English - B2 (Upper - Intermediate)"
@@ -65,4 +70,14 @@ export default async function Portfolio() {
       <Address id="contacts" />
     </div>
   );
+}
+
+/**
+ * Child async del Suspense: hace el N+1 a GitHub (repos + READMEs) fuera
+ * del cuerpo de la page. Mientras resuelve, React muestra el
+ * `PortfolioSkeleton` y el resto del shell ya está pintado.
+ */
+async function PortfolioProjects() {
+  const projects = await fetchPortfolioProjects();
+  return <PortfolioC id="portfolio" projects={projects} />;
 }
