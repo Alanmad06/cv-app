@@ -23,6 +23,57 @@
      Este tono mantiene el acento y pasa 4.5:1 como texto y 3:1 como anillo. */
   --main: 15, 107, 69;
   --font-sans: var(--font-open-sans), sans-serif;
+
+  /* ---- Rediseño visual: sistema de gradientes ----
+     Todos los gradientes viven como variables por tema y siguen el mismo
+     cambio de clase (.light/.dark) que --main, así que el modo claro/oscuro
+     los aplica sin tocar componentes. Los extremos de --accent-gradient se
+     eligieron para conservar el contraste del texto que los cubre: en claro
+     ambos extremos son oscuros (texto blanco ≥4.5:1 sobre los dos). */
+  --accent-gradient: linear-gradient(
+    135deg,
+    rgb(15, 107, 69),
+    rgb(10, 84, 130)
+  );
+  /* Mismo azul que el segundo extremo de --accent-gradient: lo usan los
+     blobs del hero para no introducir un color nuevo en la paleta. */
+  --accent-rgb: 10, 84, 130;
+  --hero-gradient:
+    radial-gradient(
+      900px 500px at 12% -10%,
+      rgba(15, 107, 69, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 600px at 105% 15%,
+      rgba(10, 84, 130, 0.14),
+      transparent 55%
+    ),
+    radial-gradient(
+      700px 700px at 50% 115%,
+      rgba(176, 128, 44, 0.13),
+      transparent 60%
+    ),
+    linear-gradient(150deg, #eff4f1 0%, #e7ecf3 50%, #f3efe7 100%);
+  --page-gradient:
+    radial-gradient(
+      700px 350px at 100% 0%,
+      rgba(15, 107, 69, 0.1),
+      transparent 65%
+    ),
+    radial-gradient(
+      600px 450px at -10% 100%,
+      rgba(10, 84, 130, 0.09),
+      transparent 65%
+    );
+  --surface-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.35)
+  );
+  --hero-card-bg: rgba(255, 255, 255, 0.45);
+  --hero-card-border: rgba(255, 255, 255, 0.7);
+  --hero-card-shadow: 0 24px 64px rgba(9, 30, 22, 0.18);
 }
 
 .dark {
@@ -30,6 +81,51 @@
   --foreground: 214, 214, 214;
   --scrollbar: 52, 56, 54;
   --main: 38, 193, 126;
+
+  /* Mismo sistema en tema oscuro: aquí los extremos del acento son claros,
+     así que el par es texto gray-900 sobre gradiente (≥4.5:1 en los dos). */
+  --accent-gradient: linear-gradient(
+    135deg,
+    rgb(38, 193, 126),
+    rgb(64, 206, 216)
+  );
+  --accent-rgb: 64, 206, 216;
+  --hero-gradient:
+    radial-gradient(
+      900px 500px at 12% -10%,
+      rgba(38, 193, 126, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 600px at 105% 15%,
+      rgba(64, 206, 216, 0.13),
+      transparent 55%
+    ),
+    radial-gradient(
+      700px 700px at 50% 115%,
+      rgba(99, 102, 241, 0.16),
+      transparent 60%
+    ),
+    linear-gradient(150deg, #131820 0%, #10171d 55%, #141a17 100%);
+  --page-gradient:
+    radial-gradient(
+      700px 350px at 100% 0%,
+      rgba(38, 193, 126, 0.12),
+      transparent 65%
+    ),
+    radial-gradient(
+      600px 450px at -10% 100%,
+      rgba(64, 206, 216, 0.09),
+      transparent 65%
+    );
+  --surface-gradient: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.02)
+  );
+  --hero-card-bg: rgba(14, 19, 26, 0.5);
+  --hero-card-border: rgba(255, 255, 255, 0.12);
+  --hero-card-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
 /* background/color los aportan las clases `bg-background text-foreground`
@@ -65,4 +161,124 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 9999px;
   background: rgb(var(--main));
   cursor: pointer;
+}
+
+/* ---- Utilidades del rediseño (CSS-first: Tailwind v4 no tiene config JS) ----
+   Van fuera de @layer a propósito: `.gradient-text` fija `color: transparent`
+   y debe ganar a cualquier `text-*` de Tailwind en el mismo elemento. */
+
+/* Fondo del hero: reemplaza la imagen de portada con los gradientes del tema. */
+.bg-hero-gradient {
+  background-image: var(--hero-gradient);
+}
+
+/* Tinte sutil de página, sobre el color plano que aporta `bg-background`. */
+.bg-page-gradient {
+  background-image: var(--page-gradient);
+}
+
+/* Superficie de tarjeta/panel con acento. */
+.bg-surface-gradient {
+  background-image: var(--surface-gradient);
+}
+
+/* Relleno de acento (botones, barras de progreso, avatares). */
+.bg-accent-gradient {
+  background-image: var(--accent-gradient);
+}
+
+/* Texto con degradado: background-clip:text pinta las letras con el
+   gradiente de acento. Los extremos pasan 4.5:1 sobre --background. */
+.gradient-text {
+  background-image: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Eje vertical del Timeline: Tailwind solo aplica variantes `before:` a
+   utilidades suyas, así que el ::before (posicionado con clases `before:`
+   de JSX) recoge el gradiente desde aquí. */
+.timeline-axis::before {
+  background-image: var(--accent-gradient);
+}
+
+/* Barra vertical del sidebar con acento (Panel). */
+.gradient-sidebar {
+  background-image: linear-gradient(
+    180deg,
+    rgb(var(--main)),
+    rgb(var(--accent-rgb))
+  );
+}
+
+/* Sidebar del Panel: superficie azul marino fija en ambos temas (por eso
+   sin `dark:`), degradada en diagonal con un toque de acento arriba. */
+.bg-panel-gradient {
+  background-color: #222935;
+  background-image:
+    radial-gradient(
+      120% 60% at 0% 0%,
+      rgba(38, 193, 126, 0.16),
+      transparent 60%
+    ),
+    linear-gradient(165deg, #2a3346 0%, #222935 50%, #1a2029 100%);
+}
+
+/* Card de cristal del hero (PhotoBox big). */
+.hero-glass-card {
+  background-color: var(--hero-card-bg);
+  border: 1px solid var(--hero-card-border);
+  box-shadow: var(--hero-card-shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---- Blobs decorativos del hero ----
+   Pura decoración: en JSX van siempre con aria-hidden. */
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+  animation: hero-float 18s ease-in-out infinite;
+}
+
+.hero-blob-a {
+  top: -10%;
+  left: -8%;
+  width: 42vmin;
+  height: 42vmin;
+  background: radial-gradient(circle, rgba(var(--main), 0.7), transparent 70%);
+}
+
+.hero-blob-b {
+  right: -10%;
+  bottom: -12%;
+  width: 50vmin;
+  height: 50vmin;
+  background: radial-gradient(
+    circle,
+    rgba(var(--accent-rgb), 0.6),
+    transparent 70%
+  );
+  animation-delay: -7s;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(30px, -26px, 0) scale(1.08);
+  }
+}
+
+/* Quien pide menos movimiento recibe menos movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob {
+    animation: none;
+  }
 }

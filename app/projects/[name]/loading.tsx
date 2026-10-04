@@ -11,7 +11,7 @@ import ProjectSkeleton from "@/components/ProjectSkeleton";
  */
 export default function Loading() {
   return (
-    <main className="container h-full min-w-[100vw] bg-[#313131] px-5 py-8">
+    <main className="bg-page-gradient container h-full min-w-[100vw] bg-[#313131] px-5 py-8">
       <ProjectSkeleton />
     </main>
   );

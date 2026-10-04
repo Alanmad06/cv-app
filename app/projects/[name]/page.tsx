@@ -25,7 +25,7 @@ export default async function Page({
   const { name } = await params;
 
   return (
-    <main className="container h-full min-w-[100vw] bg-[#313131] px-5 py-8">
+    <main className="bg-page-gradient container h-full min-w-[100vw] bg-[#313131] px-5 py-8">
       <Suspense fallback={<ProjectSkeleton />}>
         <ProjectContent name={name} />
       </Suspense>

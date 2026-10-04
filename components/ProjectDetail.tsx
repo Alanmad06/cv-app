@@ -17,9 +17,9 @@ export default function ProjectDetail({
     projectData;
 
   return (
-    <div className="bg-background text-foreground mx-auto max-w-4xl rounded-lg p-6 shadow-lg">
+    <div className="bg-surface-gradient bg-background text-foreground mx-auto max-w-4xl rounded-lg p-6 shadow-lg">
       <div className="mb-6">
-        <h1 className="text-foreground mb-2 text-3xl font-bold">{name}</h1>
+        <h1 className="gradient-text mb-2 text-3xl font-bold">{name}</h1>
         <p className="mb-4 text-gray-600 dark:text-gray-300">
           {description || "No description available"}
         </p>
@@ -29,7 +29,7 @@ export default function ProjectDetail({
             topics.map((topic) => (
               <span
                 key={topic}
-                className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800"
+                className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 dark:bg-blue-900/40 dark:text-blue-200"
               >
                 {topic}
               </span>
@@ -48,7 +48,7 @@ export default function ProjectDetail({
           <Link
             href={html_url}
             target="_blank"
-            className="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+            className="bg-accent-gradient rounded-md px-4 py-2 text-white transition-colors hover:brightness-110 dark:text-gray-900"
           >
             View on GitHub
           </Link>
@@ -57,14 +57,14 @@ export default function ProjectDetail({
 
       {readmeImages.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-foreground mb-4 text-2xl font-bold">
+          <h2 className="gradient-text mb-4 text-2xl font-bold">
             Project Images
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {readmeImages.map((imageUrl, index) => (
               <div
                 key={index}
-                className="relative h-64 overflow-hidden rounded-lg border-1 border-amber-200"
+                className="border-main/40 relative h-64 overflow-hidden rounded-lg border"
               >
                 <Image
                   src={imageUrl}
@@ -80,7 +80,7 @@ export default function ProjectDetail({
 
       {readmeContent && (
         <div className="text-foreground mb-6">
-          <h2 className="mb-4 text-2xl font-bold">README</h2>
+          <h2 className="gradient-text mb-4 text-2xl font-bold">README</h2>
           <div>
             <pre className="rounded-lg bg-[#313131] p-4 whitespace-pre-wrap">
               {readmeContent}

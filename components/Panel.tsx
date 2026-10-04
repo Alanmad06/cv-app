@@ -38,7 +38,7 @@ export default function Panel() {
       <div
         inert={!isPanelVisible}
         aria-hidden={!isPanelVisible}
-        className={`fixed top-0 left-0 z-40 h-full max-w-[25vw] min-w-[70px] bg-[#222935] shadow-lg transition-transform duration-300 ease-in-out ${
+        className={`bg-panel-gradient fixed top-0 left-0 z-40 h-full max-w-[25vw] min-w-[70px] shadow-lg transition-transform duration-300 ease-in-out ${
           isPanelVisible ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -57,9 +57,14 @@ export default function Panel() {
             href="/portfolio"
             icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
             text="Go Home"
-            className="bg-[#10141b] text-white"
+            className="bg-black/30 text-white"
           />
         </div>
+        {/* Filo de acento del borde derecho: decoración, por eso aria-hidden. */}
+        <span
+          aria-hidden="true"
+          className="gradient-sidebar absolute top-0 right-0 h-full w-1"
+        />
       </div>
     </div>
   );

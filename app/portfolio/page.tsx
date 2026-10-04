@@ -20,8 +20,11 @@ export const metadata: Metadata = { title: "Portfolio" };
 export const revalidate = 3600;
 
 export default function Portfolio() {
+  // bg-page-gradient: tinte sutil de acento sobre el color plano del tema.
+  // OJO: loading.tsx declara el mismo className y un test lo compara con
+  // toBe(...): si cambia uno, tiene que cambiar el otro idéntico.
   return (
-    <div className="bg-background relative px-4 pt-10 pb-10">
+    <div className="bg-background bg-page-gradient relative px-4 pt-10 pb-10">
       <div className="absolute top-2 right-2">
         <ToggleButton
           iconFirst={<FontAwesomeIcon icon={faMoon} size="xs" />}

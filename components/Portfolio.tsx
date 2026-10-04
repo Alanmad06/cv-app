@@ -22,7 +22,10 @@ const ProjectItem = ({
 }) => (
   <div
     onClick={() => onOpen(project.title)}
-    className="text-foreground group relative min-h-40 cursor-pointer overflow-hidden transition-all duration-300 ease-in-out"
+    // bg-surface-gradient + borde de acento: al pasar el cursor la imagen se
+    // atenúa y lo que queda debajo es una superficie del tema, no el gris
+    // plano de antes (que en tema oscuro ni se veía).
+    className="bg-surface-gradient border-main/0 text-foreground group hover:border-main/40 relative min-h-40 cursor-pointer overflow-hidden rounded-xl border transition-all duration-300 ease-in-out"
   >
     <div className="absolute inset-0 z-10 opacity-100 transition-opacity duration-300 group-hover:opacity-0 hover:z-0">
       <Image
@@ -83,7 +86,7 @@ export default function Portfolio({
 
   return (
     <section className="pb-10" id={id}>
-      <h2 className="text-main py-4 font-sans text-xl font-semibold md:text-3xl">
+      <h2 className="gradient-text py-4 font-sans text-xl font-semibold md:text-3xl">
         Projects
       </h2>
 

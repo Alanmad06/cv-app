@@ -65,7 +65,8 @@ export default function SkillsForm({ open, onClose }: SkillsFormProps) {
       open={open}
       onClose={onClose}
       title={formMode === "add" ? "Add New Skill" : "Edit Skill"}
-      panelClassName="bg-background"
+      panelClassName="bg-background bg-surface-gradient"
+      titleClassName="gradient-text"
       closeClassName="text-foreground hover:text-gray-700"
       closeLabel="Close"
     >
@@ -128,7 +129,7 @@ export default function SkillsForm({ open, onClose }: SkillsFormProps) {
       {skills.length > 0 && (
         <div className="mt-6">
           <h3 className="mb-2 text-lg font-medium">Manage Skills</h3>
-          <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-60 overflow-y-auto pr-2">
+          <div className="scrollbar-thumb-main scrollbar-track-scrollbar max-h-60 scrollbar-thin overflow-y-auto pr-2">
             {skills.map((skill) => (
               <div
                 key={skill.id}

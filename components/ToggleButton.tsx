@@ -35,9 +35,9 @@ export default function ToggleButton({
         <div
           className={`${
             theme === "dark"
-              ? "translate-x-6 bg-white text-black"
-              : "translate-x-1 bg-gray-700 text-white"
-          } inline-flex h-4 w-4 transform items-center justify-center rounded-full transition-transform duration-300 ease-in-out`}
+              ? "translate-x-6 text-gray-900"
+              : "translate-x-1 text-white"
+          } bg-accent-gradient inline-flex h-4 w-4 transform items-center justify-center rounded-full transition-transform duration-300 ease-in-out`}
         >
           {theme === "dark" ? iconFirst : iconLast}
         </div>

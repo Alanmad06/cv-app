@@ -27,11 +27,15 @@ const SkillSkeleton = () => {
 const SkillBar = ({ skill }: { skill: Skill }) => {
   return (
     <div className="mb-4">
-      <div className="bg-main mb-1 inline-block rounded-sm px-2 py-1 text-white dark:text-gray-900">
+      {/* Chip de nombre con el gradiente de acento (mismo par de contraste
+          que bg-main: blanco en claro, gray-900 en oscuro). */}
+      <div className="bg-accent-gradient mb-1 inline-block rounded-sm px-2 py-1 text-white dark:text-gray-900">
         {skill.name}
       </div>
       {/* El ancho del relleno no es texto: progressbar lo hace legible para
-          lectores de pantalla (valor, mínimo, máximo y nombre). */}
+            lectores de pantalla (valor, mínimo, máximo y nombre). El relleno
+            usa el gradiente de acento; la pista sigue en gris para que se
+            distinga el recorrido. */}
       <div
         className="relative h-6 w-full rounded-sm bg-gray-200 dark:bg-gray-600"
         role="progressbar"
@@ -41,7 +45,7 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
         aria-valuemax={100}
       >
         <div
-          className="bg-main h-6 rounded-sm"
+          className="bg-accent-gradient h-6 rounded-sm"
           style={{ width: `${skill.level}%` }}
         ></div>
       </div>
@@ -69,7 +73,7 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-main py-4 font-sans text-xl font-semibold md:text-3xl">
+        <h2 className="gradient-text py-4 font-sans text-xl font-semibold md:text-3xl">
           Skills
         </h2>
         <div className="flex gap-2">
@@ -90,7 +94,7 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
             </>
           ) : (
             <Button
-              className="bg-main hover:bg-main/80 rounded-sm px-3 py-1 text-white dark:text-gray-900"
+              className="bg-accent-gradient rounded-sm px-3 py-1 text-white hover:brightness-110 dark:text-gray-900"
               onClick={onOpenLogin}
             >
               Login
@@ -103,7 +107,7 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
         <SkillSkeleton />
       ) : (
         <>
-          <div className="scrollbar-thin scrollbar-thumb-main scrollbar-track-scrollbar max-h-[50dvh] overflow-y-scroll pr-2">
+          <div className="scrollbar-thumb-main scrollbar-track-scrollbar max-h-[50dvh] scrollbar-thin overflow-y-scroll pr-2">
             {skills.length > 0 &&
               skills.map((skill) => <SkillBar key={skill.id} skill={skill} />)}
           </div>

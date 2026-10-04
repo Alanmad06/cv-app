@@ -7,11 +7,12 @@ import PortfolioSkeleton from "@/components/PortfolioSkeleton";
  * pinta el skeleton al instante y el contenido llega streamed.
  *
  * El div replica el contenedor raíz de la page para que, al sustituirlo,
- * no haya salto de layout/padding.
+ * no haya salto de layout/padding. El test de loading lo compara con
+ * toBe(page): si cambia este className, cambia también el de page.tsx.
  */
 export default function Loading() {
   return (
-    <div className="bg-background relative px-4 pt-10 pb-10">
+    <div className="bg-background bg-page-gradient relative px-4 pt-10 pb-10">
       <PortfolioSkeleton />
     </div>
   );

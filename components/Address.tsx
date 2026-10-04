@@ -28,7 +28,7 @@ export default function Address({ id }: { id: string }) {
       id={id}
       className="flex w-[100%] flex-col items-start justify-center py-2"
     >
-      <h2 className="text-main py-4 font-sans text-xl font-semibold md:text-3xl">
+      <h2 className="gradient-text py-4 font-sans text-xl font-semibold md:text-3xl">
         Contacts
       </h2>
       {contacts.map((contact, index) => (
