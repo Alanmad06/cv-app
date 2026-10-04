@@ -9,6 +9,9 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+# yarn es el único gestor de paquetes (ver AGENTS.md)
+package-lock.json
+npm-shrinkwrap.json
 
 # testing
 /coverage
@@ -43,3 +46,4 @@ next-env.d.ts
 
 # Prisma
 /lib/generated/prisma
+/evidence
