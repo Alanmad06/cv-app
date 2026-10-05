@@ -6,6 +6,7 @@ import PhotoBox from "./PhotoBox";
 import {
   faChevronLeft,
   faBars,
+  faDownload,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -53,12 +54,31 @@ export default function Panel() {
             />
             <Navigation />
           </div>
-          <ButtonLink
-            href="/portfolio"
-            icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
-            text="Go Home"
-            className="bg-black/30 text-white"
-          />
+          <div className="flex flex-col items-center">
+            {/* Descarga nativa: `<a download>` en vez de ButtonLink (que pasa
+                por next/link y haría una navegación RSC del archivo estático)
+                o Button+onClick (requeriría sintetizar el click en JS). Así
+                sigue siendo copiable y abre-clic-derecho-able. */}
+            <a
+              href="/CV-AlanMadrigal.pdf"
+              download="CV-AlanMadrigal.pdf"
+              // El texto se oculta bajo 260px de viewport (misma técnica que
+              // ButtonLink): el aria-label garantiza nombre accesible.
+              aria-label="Download CV"
+              className="my-2 inline-flex h-10 max-w-40 min-w-10 cursor-pointer items-center justify-center rounded-md bg-black/30 px-2 text-white transition-all duration-300 ease-in-out hover:bg-black/50"
+            >
+              <FontAwesomeIcon icon={faDownload} size="xs" aria-hidden />
+              <span className="pl-1 font-sans max-[260px]:hidden">
+                Download CV
+              </span>
+            </a>
+            <ButtonLink
+              href="/portfolio"
+              icon={<FontAwesomeIcon icon={faChevronLeft} size="xs" />}
+              text="Go Home"
+              className="bg-black/30 text-white"
+            />
+          </div>
         </div>
         {/* Filo de acento del borde derecho: decoración, por eso aria-hidden. */}
         <span

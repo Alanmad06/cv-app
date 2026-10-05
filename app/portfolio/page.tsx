@@ -1,5 +1,8 @@
 import Box from "@/components/Box";
 
+import Certifications from "@/components/Certifications";
+import Disclaimer from "@/components/Disclaimer";
+import Experience from "@/components/Experience";
 import Info from "@/components/Info";
 import PortfolioC from "@/components/Portfolio";
 import PortfolioSkeleton from "@/components/PortfolioSkeleton";
@@ -11,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import Address from "@/components/Address";
 import { fetchPortfolioProjects } from "@/lib/github";
+import { certifications, professionalExperience } from "@/lib/resume";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 
@@ -34,13 +38,20 @@ export default function Portfolio() {
       <Box
         id="about-me"
         title="Who I am"
-        content=" Hi, I'm Alan Madrigal, a software engineering student passionate about building  applications.
+        content=" Hi, I'm Alan Madrigal, a software engineer with +1 year of experience working professionally passionate about building  applications.
        I enjoy working across the full stack, with a growing focus on web development, 
        cloud technologies, and system reliability.
        I’m currently expanding my skills in backend development, DevOps practices,
         and modern web technologies. Here is my portfolio I'm working on a better looking one 
         that really express who I am, 
         this one was a part of a course but still usefull ;)"
+      />
+
+      {/* Experiencia arriba: es lo primero que debe ver un reclutador. */}
+      <Experience
+        id="experience"
+        title="Professional Experience"
+        experiences={professionalExperience}
       />
 
       {/* El fetch vive en el child, no en esta función: así el shell de la
@@ -70,6 +81,16 @@ export default function Portfolio() {
           },
         ]}
       />
+      <Certifications
+        id="certifications"
+        title="Certifications"
+        certifications={certifications}
+      />
+      {/* Aviso de IA: misma nota que en home, al pie del portafolio. */}
+      <Disclaimer id="ai-disclaimer" className="mt-4">
+        Disclosure: this portfolio was built and improved with the help of AI,
+        in case you hadn&apos;t noticed.
+      </Disclaimer>
       <Address id="contacts" />
     </div>
   );

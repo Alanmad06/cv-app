@@ -6,6 +6,7 @@ import { fetchSkills } from "@/store/skillsSlice";
 import { Skill } from "@/interfaces/skills";
 import { logout } from "@/store/authSlice";
 import Button from "./ui/Button";
+import Disclaimer from "./Disclaimer";
 
 // Componente Skeleton para mostrar durante la carga
 const SkillSkeleton = () => {
@@ -119,6 +120,13 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
           </div>
         </>
       )}
+
+      {/* Fuera del ternario de loading a propósito: el aviso debe verse
+          también mientras las skills cargan. */}
+      <Disclaimer className="mt-4">
+        These skills may not be 100% up to date — download the portfolio to see
+        the full list.
+      </Disclaimer>
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import {
   faAddressCard,
+  faAward,
   faBook,
   faBriefcase,
   faList,
   faUser,
+  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -17,9 +19,19 @@ export default function Navigation() {
       url: "/portfolio#about-me",
     },
     {
+      icon: <FontAwesomeIcon icon={faUserTie} size={size} />,
+      title: "Experience",
+      url: "/portfolio#experience",
+    },
+    {
       icon: <FontAwesomeIcon icon={faBook} size={size} />, // Icon
       title: "Education",
       url: "/portfolio#education",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faAward} size={size} />,
+      title: "Certifications",
+      url: "/portfolio#certifications",
     },
 
     {

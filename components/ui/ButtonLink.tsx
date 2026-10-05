@@ -7,6 +7,9 @@ interface ButtonLinkProps {
   text: string;
   icon?: ReactNode;
   className?: string;
+  /** Solo para enlaces externos que deben abrirse en pestaña nueva. */
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  rel?: string;
 }
 
 const BASE =
@@ -22,9 +25,16 @@ export default function ButtonLink({
   text,
   icon,
   className = "",
+  target,
+  rel,
 }: ButtonLinkProps) {
   return (
-    <Link href={href} className={`${BASE} ${className}`}>
+    <Link
+      href={href}
+      target={target}
+      rel={rel}
+      className={`${BASE} ${className}`}
+    >
       {icon}
       <span className="pl-1 font-sans max-[260px]:hidden">{text}</span>
     </Link>
