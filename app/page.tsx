@@ -1,5 +1,4 @@
 import PhotoBox from "@/components/PhotoBox";
-import Disclaimer from "@/components/Disclaimer";
 
 /**
  * Portada. El fondo ya no es una imagen (`/assets/image.png`): son capas de
@@ -26,12 +25,6 @@ export default function Home() {
         big
         className="z-10"
       />
-
-      {/* Aviso pedido por el usuario: IA, en home y en /portfolio. */}
-      <Disclaimer className="relative z-10 mx-auto mb-6 max-w-xl px-4 text-center">
-        Disclosure: this portfolio was built and improved with the help of AI,
-        in case you hadn&apos;t noticed.
-      </Disclaimer>
     </div>
   );
 }

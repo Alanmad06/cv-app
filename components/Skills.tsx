@@ -124,8 +124,8 @@ export default function Skills({ onOpenLogin, onOpenSkillsForm }: SkillsProps) {
       {/* Fuera del ternario de loading a propósito: el aviso debe verse
           también mientras las skills cargan. */}
       <Disclaimer className="mt-4">
-        These skills may not be 100% up to date — download the portfolio to see
-        the full list.
+        These skills may not be 100% up to date — download the CV to see the
+        full list.
       </Disclaimer>
     </div>
   );
